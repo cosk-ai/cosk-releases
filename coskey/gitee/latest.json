@@ -1,0 +1,16 @@
+{
+  "version": "0.1.0",
+  "notes": "coskey 0.1.0 — 首个对外发布版本\n\n- ChatGPT.app 零修改、不重打包，灵活切换第三方大模型：会话\n  进行中也能换（下一轮即生效）；上下文窗口大小按模型自行指定\n- 只有 /chat/completions 的模型服务也能用：本地自动做 responses ⇄\n  chat/completions 双向翻译，流式输出与工具调用照旧\n- 解决「会话 provider 失效、打开会话就报错」：自动归因、接管修复，再次打开时\n  自愈；不想再管的会话可一键转交回官方",
+  "pub_date": "2026-09-05T18:04:25Z",
+  "min_supported_version": "0.1.0",
+  "platforms": {
+    "darwin-aarch64": {
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.1.0/coskey_0.1.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUVWOHY0L0dpaG4rd1cwTE9uc0U1MkdVWVVLU2xSWmN0RXBmdmp4R2VmVG1YOHU4S3hTaGpQTmN2Y1hNVnN0d0poSE4yb1VKNWV5a05Ib3NRVnc2WmdVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg4NjMwOTU5CWZpbGU6Y29za2V5LmFwcC50YXIuZ3oKbkRXYUNyNHZaZ0FTeExONU1zY2xvNnlYM1BhcjVJbGZSR0N3WlQzSGVzMDllZE1vNGRLRFA1aUVydGE3dnIwYytBdE1CZWxVVks0dFJFaFA2d25JQkE9PQo="
+    },
+    "darwin-x86_64": {
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.1.0/coskey_0.1.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUdxNkZ1elBGWXdoV0lRZllLSThGK0JMZlJPM0Ftd2YzamNtODBJc2U0U0crd1UxWm5yV01qQ3FTMmdUbHZIcFFCc0toK3JjUVpmYnFnU2ZRSU03RVFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg4NjMxNDY0CWZpbGU6Y29za2V5LmFwcC50YXIuZ3oKUWNoZGYrUVNtY2pPdGt2RlU4L0hyQ1VWMjBnd0tENGFEOG9RaXl2VGU4bHFzWWlROHhjdjhaYzFsRmNsc1BoZ25zOGtKb3JEZ2s1b0psakhuNTViQUE9PQo="
+    }
+  }
+}
