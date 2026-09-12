@@ -1,20 +1,16 @@
 {
-  "version": "0.1.1",
-  "notes": "Coskey 0.1.1 — 应用名与菜单栏改进\n\n- 应用名统一为 Coskey：菜单栏、Dock 与 Finder 里都显示为大写开头的\n  Coskey（此前是小写 coskey）。已装的版本更新后就地生效，不用重装\n- 新增「关于 Coskey」菜单：一处看到当前版本、更新镜像与上次检查时间，\n  并直达用户协议与隐私政策\n- 新增「检查更新」菜单：不必进设置页也能随时手动查一次；已是最新会\n  明确回一句，检查失败也会直接报错，不再让人猜",
-  "pub_date": "2026-09-06T10:09:05Z",
+  "version": "0.2.0",
+  "notes": "Coskey 0.2.0 — 供应商与模型管理改进\n\n- 首次引导只保留「安装包装器与启动配置」一步：装完直接进主界面，供应商、\n  模型改为进界面后按需添加，不再强制在引导里一口气录完\n- 供应商页新增 Base URL 测速：一键测你所填地址是否可达、要多久；「测试连接」\n  也会显示耗时，连接结论更直观\n- 模型列表支持展示名 / 应用模型 ID 一键切换（T / # 图标）；「映射到」改为\n  「被谁使用」，明确该模型在 ChatGPT.app 模型列表里出现的名字\n- 导入模型支持搜索、清空搜索、按当前搜索结果全选；上游模型多时不用再翻长列表\n- 会话列表标题改为单行省略，鼠标悬停显示完整标题\n- 会话项目分组对齐 ChatGPT.app：按 app 里的显式项目归属分组；无显式归属时按\n  目录推断，无法唯一确定时归入「其它」，与左侧栏观感一致\n- Windows 安装包随本版同步更新（未签名预览，仅供本机体验）",
+  "pub_date": "2026-09-12T12:18:28Z",
   "min_supported_version": "0.1.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.1.1/coskey_0.1.1_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU5yMGQwdXc2bEFkRFhsOTNteTJ0Z0M3d2dDVm5uSlpyajVLVEc2Q0tQRFE4ckpQZ3JndVdWQllzaGNnaGZyVFZzR2lsK0p5M0xic2RKZFk1U0RNT0FrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg4Njg5MDQ1CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKWi9HZjNpeUlyY3A1RjF0d2o1QTFHZWZvM3hETHd3Mkg3MEV2R3BLTzhzWjFoUG5zSWlIaFFkQmJwN0xraE0zNUUzcWJYV2tzUW82TlVKUzFHTmJaQXc9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.2.0/coskey_0.2.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUo2WUZ6cTRUb1FScXBvYmEwOXIxbFNPVW83MHZPTlhXcm1SMlBqQ0VnVEcwSzQybDk2QXFZZWd1dWNlVUM0d1oxZjVIbnR6UTVtTzNzWFpuYTJwU2dRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5MjE1MjExCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKaTRERVBacjdQVnk1cXIwTXB4YkF5K0hzTkhCTG02RUloY244MEVjMURZaitpMmlwZ0FRa3M0YWc3RVdreE42Q2E5d0pLazNVU29BQnk1Q3dSbXZDQUE9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.1.1/coskey_0.1.1_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUlsNTJ4STBiekg1NU9OOU41RTgyM1AyTjdVTSt5dDdwUlRhZy9QaGE2ZjM3WlNOQjVjc0tjQU9SdFVPYURGa0dJTnNtT2ZxZ1ZNUTFNcmthTVdNOXdNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg4Njg5MzQ1CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKblprMnhDaTUzNTR1Qy9IcUFkT1FUdlQxUFVsQWl3YmlBdCs3SFBTdS9PSzBjQmg5TXVFaHdXZHEwb3VsTExwSVBRTUxxOFcvTDAyNHduZjQ3dkVGQ3c9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.1.1/Coskey_0.1.1_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtYN1N5enl0MVFkTVNQNTdRQTRqQklEdVNxT21lbE52ajhaVkJBOEFHUDZ4ZjNCaG5EWDZaa3plQ083TngxMW5wa05EWFZlWWlHY0txZFFMQ3U2R1FrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg4ODgxMTA5CWZpbGU6Q29za2V5XzAuMS4xX3g2NC1zZXR1cC5leGUKZ1lVeU93eTd2UHo4VlJaaytZLzQ5eHlnUVNldUR4ekhXUzVFK3RDOHVTcUpJVjVrdGpYNXpCRFRnN3RZb1JTR2ZiUnIxRFg1S1JMYTQvRHpyL1pOQnc9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.2.0/coskey_0.2.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUI5ZkdON05TbmtOSXpyb29BMzhnb0Nub0JJNk1Mb1NXaVkvY2xkc3psY2s1WE9vNUZXV2ZaNm1NOWNmQTFobmJkT1NWYWtRajJ2NER6ekpxcy9LVndjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5MjE1NTA4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKV3MxRE1wUHRSeUtpOGlxeEtnV3J5UnA1dFRHb2hrbmlwTXFJUzFWaWJ2VFFRdUE1Z0pqeG8zZTUyMElQUGNaVlY0bWhUS0lDRG94ZENlK0d4ZXQxQkE9PQo="
     }
   }
 }
