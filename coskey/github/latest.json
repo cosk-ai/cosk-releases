@@ -1,20 +1,16 @@
 {
-  "version": "0.2.1",
-  "notes": "Coskey 0.2.1 — 会话不中断与更新体验\n\n- 改模型映射不再打断正在用的会话：以前改配置会让本地中转重启、端口变化，\n  指向旧端口的会话会报「未配置的模型」或连接失败；现在中转原地更换路由表，\n  端口与连接保持不变，改完即刻生效\n- 更新检查与下载进度收进一个对话框：设置页「检查更新」、菜单「检查更新…」\n  与「立即更新」共用同一个窗口，检查中、下载中（进度与百分比）、安装中都在\n  窗里完成，不再整屏接管应用界面\n- Windows 端不再误报更新：清单先发 macOS、Windows 包稍后补的窗口期里，\n  不会再提示一个本平台装不上的新版本，也不会出现关不掉的强制更新弹窗\n- Windows 上会话的项目归属修好了：没有显式项目归属的会话此前一律落进「其它」，\n  现在按所在目录归入对应项目，子目录里的会话也能归对\n- 修删除供应商报错；删除供应商或模型时，明确告知连带删除的选择器条目与\n  已清除的会话钉住\n- 「打开报错」的历史会话适配与卸载不再被残留写锁拦住（app 已退出时也放行），\n  体检里也不再列写锁项\n- 模型探测更准：上游对输出上限有下限校验（如要求 ≥16）时不再误判为\n  「无法判定」，探测失败也直接显示上游给出的原因\n- 添加上游模型时，窗口大小输入框的提示值改为 1000000\n- 用户协议与隐私政策升 v1.1：平台描述覆盖 Windows，条款实质未变",
-  "pub_date": "2026-09-15T13:46:33Z",
-  "min_supported_version": "0.1.1",
+  "version": "0.3.0",
+  "notes": "Coskey 0.3.0 — 官网更新入口与匿名装机统计\n\n- 更新检查优先走 cosk.ai 官网，取不到时自动回退 GitHub / Gitee；下载、安装与\n  重启流程都不变\n- 为了让开发者知道大概有多少设备在用，首次检查更新时会在这台机器上生成一个\n  随机编号，之后每次检查更新都带上它，用于按天统计设备数量和各版本的使用\n  情况；编号不含账号、设备型号、用户名，也与你的 API key、供应商配置和\n  对话内容无关\n- 不想要这个编号时，删掉 `~/.coskey/state.json` 里的 `install_id` 即可，之后\n  会被当成一台新设备；更新检查、下载与安装都不受影响。目前没有关闭统计的\n  开关，所以这里不承诺「可以关闭」\n- 用户协议与隐私政策升到 v1.2，如实说明上面这项统计：对话内容、代码、文件与\n  API key 仍然一概不上传",
+  "pub_date": "2026-09-17T12:37:44Z",
+  "min_supported_version": "0.2.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.2.1/Coskey_0.2.1_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUlReWxwYzNMTTBXT1RnQjhLZEJCcVJCS1JjSnBxK09zUzRkb2hrYkhYVm1pQjFPdUpPNENDd2Q3ekF6bmFaVFd1NjZxcFMvTmxQVk5TS2RndjNMYkE0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NDc5Njk3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKYXJ0cFQrRVpKc1gyUTVtNXhqdWQzUzFKRWh6UFZqODVxMGJFbXNCMDkzay9ZT01OMmNLQUxqQkJMRlVKZ09ObExQSGR1MzBBZkwwUmRLbWR0L0ZHRGc9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.3.0/Coskey_0.3.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUY2Y0k5dzZ3N1hIUndFMFhNR0Q1THhHOUNHOTZuUW5INlY5Z2djYXFMN1RFTGpCaEo1djNPa25Nb05OaGhWQzlteTIySU04d3N4VGZKTGkzZ0c1eVFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NjQ4MzM3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKN216M0JBWDB0d1N6WUczT1FxRTJxOEh4UzdYZXFOckhrTmFzNERObUIzOEp6UmlDRzdmZUlZYXlsRGowUEhLSEI5WktZWVZPMUxYRTVxYkJZMkZPQWc9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.2.1/Coskey_0.2.1_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RURwVkV3eXd1b0tUQktQVkEvWWdZNTFLbWVKaUN5Uytqazkrd21HeS9QRENhdmpNRTJ5MnlzejBYMlF6U1lOY1NRR3NZaFlMMjB4M29ZWjE1eXJZSVFjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NDc5OTkyCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKUkdIQ3RHa0FzN0NtZkRaNnRlWFhTdllQdW1RNXl4OGIzRzhyY0pIcDFTdnJkVlI1SjdpbTlmSXlqSlRYRzNTTkxBWjI5a3h3c2lCdGE1WHJyd1UrQ3c9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.2.1/Coskey_0.2.1_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUNPbldxYUNQM2FweStFc0p6bXJEQ1M1cTlIWlZLYTMzazZjdWlyd20zYnNpWSszN1NYZSt0VzZmellDREVyMVFsZGlaeHB3cjRVdXRRRTNDWnJFWndBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NDc2NjYxCWZpbGU6Q29za2V5XzAuMi4xX3g2NC1zZXR1cC5leGUKSnhaTHdWY05EMitlMlV5K0trWWlUdFBwZDlYOGttc2VJYXAwTm01QnlBUG5vV2JTbTJPS1laUE5pVmRpbEpYYk40N3YxeGdrYkVGdlBBeVZTV3pqQ0E9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.3.0/Coskey_0.3.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUR6WVJnSURYWWQ3YUR6REN6b05PMWI5Z3lVQzBEYWo1dGxsT1ozdFBwWGVKM0V3K293WlduQm1pNlRyWmhndWRCMnA1STh2TDFValJlSVRkeDBJVXdrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NjQ4NjYzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKNWZXTG9LS1QrQWVEQnRpUVQ0YUNITnZyLys4QXNLU2tLVDgrREg1VmNJK0J3L3hiK1RCM3RkTVMrYjJRdDZUZm11Qkd1eWVYT1NOTjg4R3VTa0cwQUE9PQo="
     }
   }
 }
