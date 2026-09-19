@@ -14,12 +14,16 @@ cosk 家族产品的发布产物与更新清单。
 
 ```
 cosk-releases/
-├── coskey/                  # 示例产品
-│   ├── github/latest.json   # 清单：产物 URL → github.com
-│   ├── gitee/latest.json    # 清单（同版本）：产物 URL → gitee.com
-│   └── notes/               # 更新说明
-└── …
+├── tools/                   # 发布脚本（清单/索引生成、部署，见 tools/README.md）
+└── coskey/                  # 示例产品
+    ├── github/latest.json   # 清单：产物 URL → github.com
+    ├── gitee/latest.json    # 清单（同版本）：产物 URL → gitee.com
+    ├── models/              # 元模板：index.json（生成物）+ <id>.json
+    └── notes/               # 更新说明
 ```
+
+产品仓库只提供内容（如 coskey 的 `src/resources/model-catalog/*.json`）；清单与索引
+在本仓生成、由本仓推双平台并部署到 cosk.ai，产品仓库不重复实现该逻辑。
 
 清单提交在仓库树中（不作为 release 附件）；两份清单仅产物 URL 主机名不同，
 与所在镜像对应。
