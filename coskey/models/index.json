@@ -4,6 +4,11 @@
       "id": "deepseek-flash",
       "version": "1.0.0",
       "sha256": "06b4d40e53e4e30333d13a60da609c11933480e1feefc1e3cabf8dcc2b0ad0a9"
+    },
+    {
+      "id": "deepseek-v4-pro",
+      "version": "1.0.0",
+      "sha256": "b7ed8be9e8d06bc91da43929ed9de33e82208c7681d1f848c5a19b6fc26c8f94"
     }
   ]
 }
