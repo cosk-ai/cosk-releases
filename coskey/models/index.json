@@ -1,0 +1,9 @@
+{
+  "meta_templates": [
+    {
+      "id": "deepseek-flash",
+      "version": "1.0.0",
+      "sha256": "06b4d40e53e4e30333d13a60da609c11933480e1feefc1e3cabf8dcc2b0ad0a9"
+    }
+  ]
+}
