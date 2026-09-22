@@ -1,20 +1,16 @@
 {
-  "version": "0.3.0",
-  "notes": "Coskey 0.3.0 — 官网更新入口与匿名装机统计\n\n- 更新检查优先走 cosk.ai 官网，取不到时自动回退 GitHub / Gitee；下载、安装与\n  重启流程都不变\n- 为了让开发者知道大概有多少设备在用，首次检查更新时会在这台机器上生成一个\n  随机编号，之后每次检查更新都带上它，用于按天统计设备数量和各版本的使用\n  情况；编号不含账号、设备型号、用户名，也与你的 API key、供应商配置和\n  对话内容无关\n- 不想要这个编号时，删掉 `~/.coskey/state.json` 里的 `install_id` 即可，之后\n  会被当成一台新设备；更新检查、下载与安装都不受影响。目前没有关闭统计的\n  开关，所以这里不承诺「可以关闭」\n- 用户协议与隐私政策升到 v1.2，如实说明上面这项统计：对话内容、代码、文件与\n  API key 仍然一概不上传",
-  "pub_date": "2026-09-17T12:37:44Z",
-  "min_supported_version": "0.2.0",
+  "version": "0.4.0",
+  "notes": "Coskey 0.4.0 — 模型目录两层重构与会话页增强\n\n- 三方模板改为「元模板 + 用户模板行」两层：模型目录独立成页，分为用户模板、\n  系统模板、元模板三个页签；用户行只保存模板名、窗口、输入模态、能力开关与\n  优先级，提示词和工具形态由元模板提供，同一基底可建多行不同窗口\n- 元模板支持版本管理与更新：默认基底随 Coskey 内置；元模板页可查看来源、\n  版本、被引用行数，并从 cosk.ai 检查和确认应用更新\n- 模板表单改为元模板先行：选择基底后自动带入可输入项，基底没提供的字段\n  禁用；模型目录页与映射页「+ 窗口模板」共用同一份表单，参数口径一致\n- 新增上游能力探测：default 基底且走原生 Responses 时，可探测文本、图像、\n  音频、原图细节与联网搜索是否可用；探测结论自动同步到表单，24 小时内复用，\n  也可强制重新探测\n- 供应商页不再设置上下文窗口；窗口统一在模型映射与模板配置，避免同一模型\n  在两处出现不一致\n- 会话页改为覆盖式分组浏览：左侧分组侧栏、项目根目录、搜索与批量动作统一\n  口径；默认每页 20 条，可选 10/20/50/100，并记忆上次分组与分页；会话名优先\n  使用内核展示名，内核会话库瞬时打开失败会自动重试\n- 修密钥相关报错：文件后端读取密钥时统一裁掉两端空白；密钥含控制字符时\n  明确报 invalid_upstream_key，不再误报 502「上游连接失败」\n- 迁移提示：旧版 models/catalog/*.json 会在升级时一次性转成用户模板行，\n  只保留界面可输入参数；手工改过的提示词等内部字段会按内置基底重建，不再\n  保留",
+  "pub_date": "2026-09-22T16:52:27Z",
+  "min_supported_version": "0.2.1",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.3.0/Coskey_0.3.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUY2Y0k5dzZ3N1hIUndFMFhNR0Q1THhHOUNHOTZuUW5INlY5Z2djYXFMN1RFTGpCaEo1djNPa25Nb05OaGhWQzlteTIySU04d3N4VGZKTGkzZ0c1eVFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NjQ4MzM3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKN216M0JBWDB0d1N6WUczT1FxRTJxOEh4UzdYZXFOckhrTmFzNERObUIzOEp6UmlDRzdmZUlZYXlsRGowUEhLSEI5WktZWVZPMUxYRTVxYkJZMkZPQWc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.4.0/Coskey_0.4.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUFsTnpScm9KdHc5MUNyY01xajJ1eGZLd1A5R1hCOVVKeXNXVDJVUnluVWRCaEw2NlIzWXkvbWgxUmlhamdzVmt1dlFydGhMUWRNb215QVRobHE3bGc4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwMDk1NjMzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKcW9MM08zZWlJZmJYaG9MZng1VUdCbFU2eC9jelhCWkZFRkE2Mk92UUFtVEFnOGtIM2dQWFcrRGdkNnpkc25mVSs5ZitxREgzbGFRcytqbjYwc1BhRGc9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.3.0/Coskey_0.3.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUR6WVJnSURYWWQ3YUR6REN6b05PMWI5Z3lVQzBEYWo1dGxsT1ozdFBwWGVKM0V3K293WlduQm1pNlRyWmhndWRCMnA1STh2TDFValJlSVRkeDBJVXdrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NjQ4NjYzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKNWZXTG9LS1QrQWVEQnRpUVQ0YUNITnZyLys4QXNLU2tLVDgrREg1VmNJK0J3L3hiK1RCM3RkTVMrYjJRdDZUZm11Qkd1eWVYT1NOTjg4R3VTa0cwQUE9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.3.0/Coskey_0.3.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUxleWpkSkg4T3lNckF5OW1qUDJaVStUUmQ2YTl0b0ROcTVYUGZnNVdVYUF1UGw5MUYzdDdaNWw3cGNXSXJDVUhnR1dhZHArcVNuMkduTktLZkd6aXdRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg5NjQ3NTQxCWZpbGU6Q29za2V5XzAuMy4wX3g2NC1zZXR1cC5leGUKL01XQlE4Y2ZlV3BvQVdqMERxYlZEWlBBVHZOTEJaOHFQaHJwREpRT3oybEtTMkdQdyttdkNQT1BSZGV2MHcyeWlhOGxSa1VvcHN0SzFhSmhNUmhORFE9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.4.0/Coskey_0.4.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUVJS3R0Y0ZCVE5nUGJTMFdwUXp1OTZ0WHF4ZmJRc3pWeFRsU1hrSjcwSkFVUFlWNUVTTWRxWVpicXI0NWZFNVNjQWgxZThaODR2RkV4Ym05dUpsY3dJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwMDk1OTQ3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKYUxUOTdRTlZsd2E3K1FxeGlJc0NIVXVOK05KdzBSRXZ0OFpOaTAzMU5rM1M5SFNBemI2V01ScmNtcmJkb2oySGJCQUQyNUVTS0lNTENPU0hZL3JXQlE9PQo="
     }
   }
 }
