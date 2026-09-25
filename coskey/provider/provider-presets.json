@@ -1,0 +1,44 @@
+[
+  {
+    "id": "deepseek",
+    "name": "DeepSeek",
+    "base_url": "https://api.deepseek.com",
+    "icon": "provider-icon/deepseek.svg",
+    "version": "1.0.0"
+  },
+  {
+    "id": "qwen",
+    "name": "千问",
+    "base_url": "https://maas.qianwenaiapi.com/compatible-mode/v1",
+    "icon": "provider-icon/qwen.png",
+    "version": "1.1.0"
+  },
+  {
+    "id": "zhipu",
+    "name": "智谱",
+    "base_url": "https://open.bigmodel.cn/api/v1",
+    "icon": "provider-icon/zhipu.png",
+    "version": "1.0.0"
+  },
+  {
+    "id": "kimi",
+    "name": "Kimi",
+    "base_url": "https://api.moonshot.cn/v1",
+    "icon": "provider-icon/kimi.png",
+    "version": "1.0.0"
+  },
+  {
+    "id": "minimax",
+    "name": "MiniMax",
+    "base_url": "https://api.minimax.cn/v1",
+    "icon": "provider-icon/minimax.png",
+    "version": "1.0.0"
+  },
+  {
+    "id": "qwenplan",
+    "name": "千问Plan",
+    "base_url": "https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1",
+    "icon": "https://img.alicdn.com/imgextra/i4/O1CN01W9GrLX1GOnvqd6zGw_!!6000000000613-55-tps-28-28.svg",
+    "version": "1.0.0"
+  }
+]

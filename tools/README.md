@@ -24,6 +24,7 @@ tools/deploy-models.sh
 |---|---|
 | `gen-models-index.sh` | 扫描 `coskey/models/*.json` → 生成 `index.json` → 提交并推送 GitHub + Gitee |
 | `deploy-models.sh` | 自检（索引与 sha256 对应）→ 传站点 → 原子就位 → 回读核对 |
+| `deploy-provider-presets.sh` | 自检（列表字段、id 合法且不重复）→ 传站点 → 原子就位 → 回读核对 |
 
 **版本规则**（`index.json` 是版本事实源，客户端只在版本更高时提示更新）：
 
@@ -38,6 +39,32 @@ tools/deploy-models.sh
 
 `gen-models-index.sh --dry-run` 仍会改写本地 `index.json`（不提交不推送），
 看完计划记得 `git checkout -- coskey/models/`。
+
+## 常用供应商预设（`coskey/provider/`）
+
+app 供应商页「一键填充」读的远端列表（落点与读取方式见 coskey 仓库设计 `0003` §12 第 5 条，
+客户端读取侧尚未实现，本仓先把托管入口备好）。内容来自产品仓库 coskey 的
+`src/resources/provider-presets.json`，**本仓不生成**，同步过来提交即可。
+
+```bash
+# 1) 从产品仓库同步内容（含 icon：相对路径的图标必须一起拷进来才发得出去）
+cp <coskey 仓库>/src/resources/provider-presets.json coskey/provider/
+cp -R <coskey 仓库>/src/resources/provider-icon coskey/provider/   # 列表里写了相对路径才需要
+
+# 2) 部署到 cosk.ai
+tools/deploy-provider-presets.sh
+#    加 --dry-run 只做本地自检与计划
+```
+
+| 入口 | URL |
+|---|---|
+| app（不缓存，立即生效） | `https://www.cosk.ai/data/app/coskey/provider/provider-presets.json` |
+| 直读（缓存 600s） | `https://www.cosk.ai/data/releases/coskey/provider/provider-presets.json` |
+
+整目录发布：`coskey/provider/` 下的文件（如 `provider-icon/`）会一并上线，列表最后落地。
+脚本自检要求每条含 `id` / `name` / `base_url` / `version`，`id` 合法（同 `service::valid_id`）且不重复；
+`icon` 写相对路径时本地必须有对应文件（缺了只告警，不拦发布）；写 `http(s)://` 绝对地址则运行时远端取图。
+改了某条的字段就抬那条的 `version`，否则客户端拿不到更新。
 
 ## 环境变量
 

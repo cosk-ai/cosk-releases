@@ -19,6 +19,7 @@ cosk-releases/
     ├── github/latest.json   # 清单：产物 URL → github.com
     ├── gitee/latest.json    # 清单（同版本）：产物 URL → gitee.com
     ├── models/              # 元模板：index.json（生成物）+ <id>.json
+    ├── provider/            # 常用供应商预设：provider-presets.json（+ 可选 provider-icon/）
     └── notes/               # 更新说明
 ```
 
