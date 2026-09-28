@@ -5,8 +5,8 @@
 #   app 入口   https://www.cosk.ai/data/app/coskey/models/index.json        不缓存
 #   直读入口   https://www.cosk.ai/data/releases/coskey/models/index.json   缓存 600s
 # 两者指向磁盘同一份：$SITE_ROOT/data/releases/coskey/models/。
-# 目录里有 <版本>/<id>.json 模板与两份生成物索引（index.json 只含每 id 最新版本，
-# index-all.json 含全部版本），两份都会一并上线；回读核对逐个文件比对。
+# 目录里有 <版本>/<id>.json 模板与生成物 index.json（每 id 一条，含 history）；
+# 会一并上线，回读核对逐个文件比对。
 # 落地是**整目录镜像**：源里删掉/移走的旧项（如迁移前残留的顶层 <id>.json）
 # 会从站点一并清除，落地后站点内容与工作区一致。
 # 发布仓工作副本是唯一来源，本脚本不生成内容——生成与提交见
@@ -52,81 +52,67 @@ from pathlib import Path
 
 root = Path(os.environ["MODELS"])
 index = root / "index.json"
-index_all = root / "index-all.json"
-for f in (index, index_all):
-    if not f.is_file():
-        sys.exit(f"错误：缺 {f.name}（先跑 tools/gen-models-index.sh）")
-
-
-def load(path):
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))["meta_templates"]
-    except Exception as exc:
-        sys.exit(f"错误：{path.name} 不可解析：{exc}")
-
-
-def rel_of(e):
-    return e.get("path") or f"{e.get('version', '')}/{e.get('id', '')}.json"
+if not index.is_file():
+    sys.exit("错误：缺 index.json（先跑 tools/gen-models-index.sh）")
+if (root / "index-all.json").is_file():
+    sys.exit("错误：index-all.json 已废弃（内容并入 index.json 的 history）；"
+             "重跑 tools/gen-models-index.sh 会删除它")
+try:
+    entries = json.loads(index.read_text(encoding="utf-8"))["meta_templates"]
+except Exception as exc:
+    sys.exit(f"错误：index.json 不可解析：{exc}")
+if not entries:
+    sys.exit("错误：index.json 里没有模板")
 
 
 def vkey(v):
     return tuple(int(p) for p in str(v).split("."))
 
 
-entries = load(index)
-all_entries = load(index_all)
-if not entries:
-    sys.exit("错误：index.json 里没有模板")
+def check(rel, sha, whom):
+    p = root / rel
+    if not p.is_file():
+        sys.exit(f"错误：{whom} 指向的模板不存在：{rel}")
+    got = hashlib.sha256(p.read_bytes()).hexdigest()
+    if got != sha:
+        sys.exit(f"错误：{rel} 的 sha256 与 {whom} 不符（索引 {sha}，实际 {got}）")
+    return got
 
-# index.json：每个 id 只一条，sha256 按原始字节与文件一一对应
+
+# index.json：每个 id 一条；顶层是最新版本，history 是更低的版本（新→旧）
 ids = set()
+covered = set()
 for e in entries:
     mid = e.get("id", "")
     if not mid or mid in ids:
         sys.exit(f"错误：index.json 有空的或重复的 id：{e!r}")
     ids.add(mid)
-    rel = rel_of(e)
-    p = root / rel
-    if not p.is_file():
-        sys.exit(f"错误：index.json 指向的模板不存在：{rel}")
-    got = hashlib.sha256(p.read_bytes()).hexdigest()
-    if got != e.get("sha256"):
-        sys.exit(f"错误：{rel} 的 sha256 与 index.json 不符（索引 {e.get('sha256')}，实际 {got}）")
-    if not e.get("version"):
-        sys.exit(f"错误：{rel} 在 index.json 里没有版本号")
-    print(f"  {mid}：v{e['version']}  sha256 {got[:16]}…")
+    ver = e.get("version", "")
+    if not ver:
+        sys.exit(f"错误：{mid} 在 index.json 里没有版本号")
+    rel = e.get("path") or f"{ver}/{mid}.json"
+    got = check(rel, e.get("sha256"), "index.json")
+    covered.add(rel)
+    seen = set()
+    for h in e.get("history") or []:
+        hv = h.get("version", "")
+        if not hv or hv in seen or hv == ver:
+            sys.exit(f"错误：{mid} 的 history 版本重复或非法：{hv!r}")
+        seen.add(hv)
+        if vkey(hv) >= vkey(ver):
+            sys.exit(f"错误：{mid} 的 history 版本 v{hv} 不低于当前 v{ver}")
+        hrel = h.get("path") or f"{hv}/{mid}.json"
+        check(hrel, h.get("sha256"), f"{mid} 的 history v{hv}")
+        covered.add(hrel)
+    print(f"  {mid}：v{ver}  sha256 {got[:16]}…  历史 {len(seen)} 个")
 
-# index-all.json：覆盖全部 <版本>/<id>.json；目录里有模板就必须在册
-by_path = {}
-for e in all_entries:
-    rel = rel_of(e)
-    if rel in by_path:
-        sys.exit(f"错误：index-all.json 有重复条目：{rel}")
-    by_path[rel] = e
-for p in sorted(root.glob("*/*.json")):
-    rel = p.relative_to(root).as_posix()
-    e = by_path.get(rel)
-    if e is None:
-        sys.exit(f"错误：{rel} 未出现在 index-all.json（重跑 tools/gen-models-index.sh）")
-    got = hashlib.sha256(p.read_bytes()).hexdigest()
-    if got != e.get("sha256"):
-        sys.exit(f"错误：{rel} 的 sha256 与 index-all.json 不符（索引 {e.get('sha256')}，实际 {got}）")
-
-# index.json 必须等于 index-all.json 里每个 id 的最高版本
-high = {}
-for e in all_entries:
-    mid = e.get("id", "")
-    if mid not in high or vkey(e.get("version", "0")) > vkey(high[mid].get("version", "0")):
-        high[mid] = e
-for e in entries:
-    h = high.get(e["id"])
-    if h is None or h.get("version") != e.get("version"):
-        sys.exit(f"错误：{e['id']} 在 index.json 里是 v{e.get('version')}，"
-                 f"不是 index-all.json 里的最新版本（{h and h.get('version')}）")
-for mid in high:
-    if mid not in ids:
-        sys.exit(f"错误：{mid} 的最新版本没进 index.json（重跑 tools/gen-models-index.sh）")
-print(f"  索引核对通过：index.json {len(entries)} 条 / index-all.json {len(all_entries)} 条")
+# 反向：目录里每个 <版本>/<id>.json 都要被 index.json 覆盖（顶层或 history）
+dangling = [p.relative_to(root).as_posix() for p in sorted(root.glob("*/*.json"))
+            if p.relative_to(root).as_posix() not in covered]
+if dangling:
+    sys.exit("错误：以下模板未出现在 index.json（重跑 tools/gen-models-index.sh）："
+             + "、".join(dangling))
+print(f"  索引核对通过：{len(entries)} 个模板、{len(covered) - len(entries)} 个历史版本")
 PY
 
 if [ "$DRY_RUN" = 1 ]; then
@@ -156,7 +142,7 @@ ssh_ "set -e
   : > .publish-list
   for entry in *; do
     [ -e \"\$entry\" ] || continue
-    case \"\$entry\" in index.json|index-all.json) continue ;; esac
+    case \"\$entry\" in index.json) continue ;; esac
     printf '%s\n' \"\$entry\" >> .publish-list
   done
   while IFS= read -r entry; do
@@ -166,12 +152,11 @@ ssh_ "set -e
   for old in '$REL'/*; do
     [ -e \"\$old\" ] || continue
     name=\$(basename \"\$old\")
-    case \"\$name\" in index.json|index-all.json) continue ;; esac
+    case \"\$name\" in index.json) continue ;; esac
     grep -qxF -- \"\$name\" .publish-list || rm -rf \"\$old\"
   done
   rm -f .publish-list
   mv -f index.json '$REL'/index.json
-  if [ -f index-all.json ]; then mv -f index-all.json '$REL'/index-all.json; fi
   rm -rf '$INCOMING'
   find '$REL' -type d -exec chmod 755 {} +
   find '$REL' -type f -exec chmod 644 {} +" \
@@ -179,7 +164,7 @@ ssh_ "set -e
 
 # 3) 回读核对（app 入口不缓存，读到的就是刚传的那份）
 say "回读核对"
-# 逐文件回读：<版本>/<id>.json 与根下两份索引。用 glob 而非 process substitution，
+# 逐文件回读：<版本>/<id>.json 与根下的 index.json。用 glob 而非 process substitution，
 # 保持本脚本可在 sh（含 dash）下运行。
 for f in "$MODELS"/*/*.json "$MODELS"/*.json; do
   [ -f "$f" ] || continue
@@ -203,11 +188,10 @@ echo ""
 SUMMARY=$(MODELS="$MODELS" python3 - <<'PYEOF'
 import json, os
 from pathlib import Path
-root = Path(os.environ["MODELS"])
-idx = json.loads((root / "index.json").read_text(encoding="utf-8"))["meta_templates"]
-allidx = json.loads((root / "index-all.json").read_text(encoding="utf-8"))["meta_templates"]
+idx = json.loads((Path(os.environ["MODELS"]) / "index.json").read_text(encoding="utf-8"))["meta_templates"]
+n_hist = sum(len(e.get("history") or []) for e in idx)
 print("、".join(f'{e["id"]} v{e["version"]}' for e in idx)
-      + f"（index {len(idx)} 条 / index-all {len(allidx)} 条）")
+      + f"（{len(idx)} 个模板 / {n_hist} 个历史版本）")
 PYEOF
 )
 say "已部署：${SUMMARY}"

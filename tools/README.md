@@ -11,16 +11,23 @@ app 的「元模板更新」读取的索引与模板（约定见 coskey 仓库 `
 ```
 coskey/models/
 ├── <版本>/<id>.json   模板本体（如 1.1.1/deepseek-flash.json）
-├── index.json         生成物：每个 id 只留**最新版本**一条
-└── index-all.json     生成物：**全部版本**，一条一个 (id, 版本)
+└── index.json         生成物：每个 id 一条（最新版本 + 历史版本）
 ```
 
-两份索引都是**生成物**，不要手写；每条含 `id` / `version` / `sha256` /
-`path`（相对 `coskey/models/`）。客户端读 `index.json` 判断有没有更新，
-`index-all.json` 供需要回溯历史版本时取用。
+`index.json` 是**生成物**，不要手写。每条一个 id：
+
+```json
+{"id": "deepseek-flash", "version": "1.1.1", "sha256": "…", "path": "1.1.1/deepseek-flash.json",
+ "history": [{"version": "1.0.1", "sha256": "…", "path": "1.0.1/deepseek-flash.json"}]}
+```
+
+顶层 `version` / `sha256` / `path` 是最新版本；`history` 是同一 id 的旧版本
+（**新→旧**），每项 `{version, sha256, path}`，无旧版本时为空数组。
+`path` 相对 `coskey/models/`。客户端读 `index.json` 判断有没有更新；需要旧版本时
+从 `history` 里取。旧的全量索引 `index-all.json` 已废弃，内容并入 `history`。
 
 ```bash
-# 1) 生成 index.json / index-all.json 并推双平台
+# 1) 生成 index.json 并推双平台
 tools/gen-models-index.sh                              # 只扫描 coskey/models/ 现有文件
 tools/gen-models-index.sh --from <模板目录> --from-version <semver>
 #    模板目录可直接用 coskey 仓库的 src/resources/model-catalog/
@@ -36,11 +43,11 @@ tools/deploy-models.sh
 
 | 脚本 | 职责 |
 |---|---|
-| `gen-models-index.sh` | 扫描 `coskey/models/<版本>/<id>.json` → 生成 `index.json`（最新）与 `index-all.json`（全部）→ 提交并推送 GitHub + Gitee |
-| `deploy-models.sh` | 自检（两份索引与 sha256 对应、`index.json` 等于每个 id 的最高版本）→ 传站点 → 原子就位 → 回读核对 |
+| `gen-models-index.sh` | 扫描 `coskey/models/<版本>/<id>.json` → 生成 `index.json`（每 id 一条，含 `history`）→ 提交并推送 GitHub + Gitee |
+| `deploy-models.sh` | 自检（索引与 sha256 对应、`history` 版本低于当前、目录里每个模板都被覆盖）→ 传站点 → 原子就位 → 回读核对 |
 | `deploy-provider-presets.sh` | 自检（列表字段、id 合法且不重复）→ 传站点 → 原子就位 → 回读核对 |
 
-**版本规则**（`index-all.json` 是全部版本的事实源，客户端只在版本更高时提示更新）：
+**版本规则**（`index.json` 是版本事实源，客户端只在版本更高时提示更新）：
 
 | 情形 | 要求 |
 |---|---|
@@ -50,9 +57,9 @@ tools/deploy-models.sh
 
 所以**已发布的模板内容不可原地改**：改了内容就得放进更高的版本目录，否则客户端拿不到
 更新。`--force` 可跳过，但同版本不会触发客户端更新，等于发了个拿不到的版本（脚本会警告）。
-新增的版本目录若低于该 id 的已发布最高版本，只会进 `index-all.json`（脚本会提示）。
+新增的版本目录若低于该 id 的已发布最高版本，只会进该条的 `history`（脚本会提示）。
 
-`gen-models-index.sh --dry-run` 仍会改写本地两份索引（不提交不推送），
+`gen-models-index.sh --dry-run` 仍会改写本地 `index.json`（不提交不推送），
 看完计划记得 `git checkout -- coskey/models/`。
 
 ## 常用供应商预设（`coskey/provider/`）

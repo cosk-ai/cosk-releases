@@ -4,43 +4,62 @@
       "id": "MiniMax-M3",
       "version": "1.0.0",
       "sha256": "1a402c2a5635239e673e86abeaa3ea3c7d71c87268d836545424756ea8d2bd2e",
-      "path": "1.0.0/MiniMax-M3.json"
+      "path": "1.0.0/MiniMax-M3.json",
+      "history": []
     },
     {
       "id": "deepseek-flash",
       "version": "1.1.1",
       "sha256": "1e7990b7758eee947d644099489f66969910eae5dd009f6f4fe83f1aa44b6ccc",
-      "path": "1.1.1/deepseek-flash.json"
+      "path": "1.1.1/deepseek-flash.json",
+      "history": [
+        {
+          "version": "1.0.1",
+          "sha256": "2ca858fd4acc324f3418c8aa2c6d33bbea9e9b9b1ca2856273a14e323410225c",
+          "path": "1.0.1/deepseek-flash.json"
+        }
+      ]
     },
     {
       "id": "deepseek-v4-pro",
       "version": "1.1.1",
       "sha256": "970f9e1daa03f20fd1f7b63d49e188bb57b18a3e9497f025e49cb765383ac5cc",
-      "path": "1.1.1/deepseek-v4-pro.json"
+      "path": "1.1.1/deepseek-v4-pro.json",
+      "history": [
+        {
+          "version": "1.0.1",
+          "sha256": "fcdcc82a9f66b73cfd3e5e2fc8b19dfd6157750cb01c3e0732278d99c3d34909",
+          "path": "1.0.1/deepseek-v4-pro.json"
+        }
+      ]
     },
     {
       "id": "glm-5.3",
       "version": "1.0.0",
       "sha256": "d4f3338867dab19c910cb877b6b0c9fe59477af60cf54ae37e799eeecff4cb42",
-      "path": "1.0.0/glm-5.3.json"
+      "path": "1.0.0/glm-5.3.json",
+      "history": []
     },
     {
       "id": "kimi-k3",
       "version": "1.0.0",
       "sha256": "ac5bbc6ac1acfc8c76aa0c9ef742bd5afd0b392986ca74b8d85759bc82e69ce2",
-      "path": "1.0.0/kimi-k3.json"
+      "path": "1.0.0/kimi-k3.json",
+      "history": []
     },
     {
       "id": "qwen3.8-flash",
       "version": "1.0.0",
       "sha256": "e7d053503d46f14a4da98b475ab674f666f910a25295c8cd19c8c3b6e9cbea3a",
-      "path": "1.0.0/qwen3.8-flash.json"
+      "path": "1.0.0/qwen3.8-flash.json",
+      "history": []
     },
     {
       "id": "qwen3.8-max",
       "version": "1.0.0",
       "sha256": "ba899b9cad573d319cb4b1e19a316bc3c68a95504e765ec6b9e8cb949558ff90",
-      "path": "1.0.0/qwen3.8-max.json"
+      "path": "1.0.0/qwen3.8-max.json",
+      "history": []
     }
   ]
 }

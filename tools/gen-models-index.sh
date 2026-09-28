@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 # 元模板索引生成（cosk-releases 侧）：扫描 coskey/models/<版本>/<id>.json，
-# 生成/更新 index.json（每个模板只留最新版本）与 index-all.json（保留全部版本），
+# 生成/更新 index.json（每个模板一条：最新版本 + 历史版本），
 # 提交并推送到 GitHub 与 Gitee 两个平台。
 #
 # 目录约定（索引格式与校验约定见 coskey 仓库 0018 §5.0）：
 #   coskey/models/
 #   ├── <版本>/<id>.json   模板本体，版本号就是所在目录名（X.Y.Z）
-#   ├── index.json         生成物：每个 id 的最新版本一条
-#   └── index-all.json     生成物：全部版本，一条一个 (id, 版本)
+#   └── index.json         生成物：每个 id 一条
 #
-# 两个索引都是本仓的**生成物**，不要手写：
-#   {"meta_templates":[{"id","version","sha256","path"}]}
+# index.json 是本仓的**生成物**，不要手写：
+#   {"meta_templates":[{"id","version","sha256","path","history":[…]}]}
+#   每条一个 id：顶层是最新版本，history 是同一 id 的旧版本（新→旧），
+#   每项 {version,sha256,path}（旧的全量索引 index-all.json 已并入 history）。
 #   path 相对 coskey/models/（如 `1.1.1/deepseek-flash.json`）；
 #   sha256 按模板文件的**原始字节**计算，客户端逐字节校验。
 #
@@ -34,7 +35,7 @@
 #   内容有变化    必须放进更高的版本目录；原地改已发布目录里的文件会被拒绝
 #   内容无变化    可原样重跑（允许重发/补传）
 #
-# index.json 只收录每个 id 的最高版本；更低版本仍留在 index-all.json 里。
+# index.json 里每个 id 一条：version 写最新版本，history 收纳它的旧版本。
 set -eu
 # pipefail 只有 bash/zsh/ksh 有；dash 等 POSIX sh 没有，能开就开
 if (set -o pipefail) 2>/dev/null; then set -o pipefail; fi
@@ -76,8 +77,8 @@ done
 command -v python3 >/dev/null || die "需要 python3"
 [ -d "$MODELS" ] || die "找不到模板目录：$MODELS"
 
-# 1) 导入模板（可选）+ 2) 生成 index.json / index-all.json
-say "生成 index.json 与 index-all.json（${MODELS}）"
+# 1) 导入模板（可选）+ 2) 生成 index.json
+say "生成 index.json（${MODELS}）"
 VERSIONS_JOINED="$DECLARE_VERSIONS"
 MODELS="$MODELS" FROM="$FROM" FROM_VERSION="$FROM_VERSION" \
 VERSION_FILE="$VERSION_FILE" DECLARED="$VERSIONS_JOINED" \
@@ -183,7 +184,7 @@ for d in sorted(root.iterdir()):
 if not version_dirs:
     raise SystemExit(f"错误：{root} 下没有版本目录（应为 `<版本>/<id>.json`）")
 
-# 已发布记录：index-all.json 是全部版本的事实源；兼容迁移前只有 index.json 的情况
+# 已发布记录：index.json 是版本事实源（含各条的 history）；兼容遗留的 index-all.json
 old = {}
 
 
@@ -198,6 +199,10 @@ def load_index(path):
         mid, ver = e.get("id", ""), e.get("version", "")
         if mid and ver:
             old[(mid, ver)] = e.get("sha256", "")
+        for h in e.get("history") or []:
+            hmid, hver = h.get("id", mid), h.get("version", "")
+            if hmid and hver:
+                old.setdefault((hmid, hver), h.get("sha256", ""))
 
 
 load_index(INDEX)
@@ -265,46 +270,54 @@ if forced:
     print("  警告：以下已发布内容被原地改动（--force）：" + "、".join(forced))
     print("        客户端按版本比较，同版本不会提示更新——这些改动实际发不出去。")
 
-# index.json：每个 id 取最高版本；index-all.json：全部版本
-latest = {}
+# index.json：每个 id 一条，version 取最高版本，其余版本进 history（新→旧）
+by_id = {}
 for e in entries:
-    mid = e["id"]
-    if mid not in latest or vkey(e["version"]) > vkey(latest[mid]["version"]):
-        latest[mid] = e
+    by_id.setdefault(e["id"], []).append(e)
 
-index_entries = sorted(latest.values(), key=lambda e: e["id"])
-all_entries = sorted(entries, key=lambda e: (e["id"], vkey(e["version"])))
+index_entries, latest = [], {}
+for mid in sorted(by_id):
+    versions = sorted(by_id[mid], key=lambda e: vkey(e["version"]), reverse=True)
+    head, older = versions[0], versions[1:]
+    latest[mid] = head
+    index_entries.append({
+        "id": mid,
+        "version": head["version"],
+        "sha256": head["sha256"],
+        "path": head["path"],
+        "history": [{"version": o["version"], "sha256": o["sha256"], "path": o["path"]}
+                    for o in older],
+    })
 
 for n in notes:
     print(n)
-for e in all_entries:
+for e in entries:
     if (e["id"], e["version"]) not in old and latest[e["id"]] is not e:
-        print(f"  提示：{e['id']} v{e['version']} 不是最新（index.json 用 "
-              f"v{latest[e['id']]['version']}，本条只在 index-all.json）")
+        print(f"  提示：{e['id']} v{e['version']} 不是最新（只进 history；"
+              f"index.json 的 version 是 v{latest[e['id']]['version']}）")
 
 INDEX.write_text(
     json.dumps({"meta_templates": index_entries}, indent=2, ensure_ascii=False) + "\n",
     encoding="utf-8",
 )
-INDEX_ALL.write_text(
-    json.dumps({"meta_templates": all_entries}, indent=2, ensure_ascii=False) + "\n",
-    encoding="utf-8",
-)
-print(f"  index.json 已更新：{len(index_entries)} 条（每 id 最新版本）")
-print(f"  index-all.json 已更新：{len(all_entries)} 条（全部版本）")
+n_hist = sum(len(e["history"]) for e in index_entries)
+if INDEX_ALL.exists():
+    INDEX_ALL.unlink()
+    print("  已删除 index-all.json（旧版本并入各条目的 history）")
+print(f"  index.json 已更新：{len(index_entries)} 个模板、"
+      f"{n_hist} 个历史版本")
 PY
 
 if [ "$DRY_RUN" = 1 ]; then
   echo ""
-  say "dry-run：index.json 与 index-all.json 已写入本地工作区，未提交、未推送"
+  say "dry-run：index.json 已写入本地工作区（index-all.json 已删除），未提交、未推送"
   MODELS="$MODELS" python3 - <<'PYEOF'
 import json, os
 from pathlib import Path
 root = Path(os.environ["MODELS"])
 idx = json.loads((root / "index.json").read_text(encoding="utf-8"))["meta_templates"]
-allidx = json.loads((root / "index-all.json").read_text(encoding="utf-8"))["meta_templates"]
-print("  index.json    （最新）：" + "、".join(f'{e["id"]} v{e["version"]}' for e in idx))
-print("  index-all.json（全部）：" + "、".join(f'{e["id"]} v{e["version"]}' for e in allidx))
+print("  index.json：" + "、".join(
+    f'{e["id"]} v{e["version"]}（历史 {len(e.get("history") or [])}）' for e in idx))
 PYEOF
   exit 0
 fi
@@ -323,7 +336,7 @@ if git -C "$ROOT" diff --cached --quiet; then
   say "无变化：仓库已是本次内容"
   exit 0
 fi
-git -C "$ROOT" commit -q -m "${MESSAGE:-chore(models): 更新元模板索引 index/index-all 与模板}"
+git -C "$ROOT" commit -q -m "${MESSAGE:-chore(models): 更新元模板索引与模板}"
 say "已提交：$(git -C "$ROOT" rev-parse --short HEAD)"
 if [ "$NO_PUSH" = 1 ]; then
   say "未推送（--no-push）：确认后手动 git push $GITHUB_REMOTE $BRANCH 与 $GITEE_REMOTE $BRANCH"
