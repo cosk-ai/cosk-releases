@@ -6,13 +6,27 @@
 ## 元模板（`coskey/models/`）
 
 app 的「元模板更新」读取的索引与模板（约定见 coskey 仓库 `0018` §5.0）。
-`index.json` 是**生成物**，不要手写。
+模板按版本号放在一层子目录里，版本号就是目录名：
+
+```
+coskey/models/
+├── <版本>/<id>.json   模板本体（如 1.1.1/deepseek-flash.json）
+├── index.json         生成物：每个 id 只留**最新版本**一条
+└── index-all.json     生成物：**全部版本**，一条一个 (id, 版本)
+```
+
+两份索引都是**生成物**，不要手写；每条含 `id` / `version` / `sha256` /
+`path`（相对 `coskey/models/`）。客户端读 `index.json` 判断有没有更新，
+`index-all.json` 供需要回溯历史版本时取用。
 
 ```bash
-# 1) 生成 index.json 并推双平台
-tools/gen-models-index.sh --from <模板目录> --version <id>=<semver>
+# 1) 生成 index.json / index-all.json 并推双平台
+tools/gen-models-index.sh                              # 只扫描 coskey/models/ 现有文件
+tools/gen-models-index.sh --from <模板目录> --from-version <semver>
 #    模板目录可直接用 coskey 仓库的 src/resources/model-catalog/
-#    多个模板给多个 --version，或用 --version-file（每行 `<id> <semver>`）
+#    --from 会把 <id>.json 复制进 coskey/models/<semver>/；
+#    一批里想落到不同版本目录时，用 --version <id>=<semver>（可重复）或
+#    --version-file（每行 `<id> <semver>`）逐条覆盖 --from-version
 #    加 --dry-run 只看计划
 
 # 2) 部署到 cosk.ai
@@ -22,22 +36,23 @@ tools/deploy-models.sh
 
 | 脚本 | 职责 |
 |---|---|
-| `gen-models-index.sh` | 扫描 `coskey/models/*.json` → 生成 `index.json` → 提交并推送 GitHub + Gitee |
-| `deploy-models.sh` | 自检（索引与 sha256 对应）→ 传站点 → 原子就位 → 回读核对 |
+| `gen-models-index.sh` | 扫描 `coskey/models/<版本>/<id>.json` → 生成 `index.json`（最新）与 `index-all.json`（全部）→ 提交并推送 GitHub + Gitee |
+| `deploy-models.sh` | 自检（两份索引与 sha256 对应、`index.json` 等于每个 id 的最高版本）→ 传站点 → 原子就位 → 回读核对 |
 | `deploy-provider-presets.sh` | 自检（列表字段、id 合法且不重复）→ 传站点 → 原子就位 → 回读核对 |
 
-**版本规则**（`index.json` 是版本事实源，客户端只在版本更高时提示更新）：
+**版本规则**（`index-all.json` 是全部版本的事实源，客户端只在版本更高时提示更新）：
 
 | 情形 | 要求 |
 |---|---|
-| 新模板 | 必须给版本，否则拒绝 |
-| 内容有变化 | 版本必须**高于**已发布版本，否则拒绝 |
-| 内容无变化 | 沿用已记录版本（允许重发/补传） |
+| 发布新版本 | 放进新的 `<版本>/` 目录即可，版本号就是目录名 |
+| 内容有变化 | 必须放进**更高**的版本目录，原地改已发布目录里的文件会被拒绝 |
+| 内容无变化 | 可原样重跑（允许重发/补传） |
 
-所以**已发布的模板内容不可原地改**：改了内容就必须抬版本，否则客户端拿不到更新。
-`--force` 可跳过，但同版本不会触发客户端更新，等于发了个拿不到的版本（脚本会警告）。
+所以**已发布的模板内容不可原地改**：改了内容就得放进更高的版本目录，否则客户端拿不到
+更新。`--force` 可跳过，但同版本不会触发客户端更新，等于发了个拿不到的版本（脚本会警告）。
+新增的版本目录若低于该 id 的已发布最高版本，只会进 `index-all.json`（脚本会提示）。
 
-`gen-models-index.sh --dry-run` 仍会改写本地 `index.json`（不提交不推送），
+`gen-models-index.sh --dry-run` 仍会改写本地两份索引（不提交不推送），
 看完计划记得 `git checkout -- coskey/models/`。
 
 ## 常用供应商预设（`coskey/provider/`）

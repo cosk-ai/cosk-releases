@@ -8,9 +8,21 @@
     },
     {
       "id": "deepseek-flash",
+      "version": "1.0.1",
+      "sha256": "2ca858fd4acc324f3418c8aa2c6d33bbea9e9b9b1ca2856273a14e323410225c",
+      "path": "1.0.1/deepseek-flash.json"
+    },
+    {
+      "id": "deepseek-flash",
       "version": "1.1.1",
       "sha256": "1e7990b7758eee947d644099489f66969910eae5dd009f6f4fe83f1aa44b6ccc",
       "path": "1.1.1/deepseek-flash.json"
+    },
+    {
+      "id": "deepseek-v4-pro",
+      "version": "1.0.1",
+      "sha256": "fcdcc82a9f66b73cfd3e5e2fc8b19dfd6157750cb01c3e0732278d99c3d34909",
+      "path": "1.0.1/deepseek-v4-pro.json"
     },
     {
       "id": "deepseek-v4-pro",
