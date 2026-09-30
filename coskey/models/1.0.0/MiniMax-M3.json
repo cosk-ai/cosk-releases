@@ -32,27 +32,15 @@
       "default_reasoning_summary": "none",
       "display_name": "MiniMax-M3",
       "description": "Frontier agentic coding model.",
-      "default_reasoning_level": "max",
+      "default_reasoning_level": "high",
       "supported_reasoning_levels": [
         {
-          "description": "Fast responses with lighter reasoning",
-          "effort": "low"
+          "effort": "none",
+          "description": "Think-Off"
         },
         {
-          "description": "Balances speed and reasoning depth for everyday tasks",
-          "effort": "medium"
-        },
-        {
-          "description": "Greater reasoning depth for complex problems",
-          "effort": "high"
-        },
-        {
-          "description": "Extra high reasoning depth for complex problems",
-          "effort": "xhigh"
-        },
-        {
-          "description": "Maximum reasoning depth for the hardest problems",
-          "effort": "max"
+          "effort": "high",
+          "description": "Deep"
         }
       ],
       "shell_type": "shell_command",
