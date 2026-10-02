@@ -1,20 +1,16 @@
 {
-  "version": "0.5.0",
-  "notes": "Coskey 0.5.0 — 供应商页更省事，模型探测更准\n\n- 新增供应商支持一键填充：表单顶部列出 DeepSeek、千问、智谱、Kimi、MiniMax，\n  点一下就把名称和地址填好，只差 API key；末尾「更多…」还能拉一份最新供应商清单\n- 供应商页更好用：可按供应商快速跳转与高亮，卡片上能一键复制端点与 API key，\n  标题前面还会按地址自动显示对应供应商的图标\n- 模型探测更准：修了图像等能力被探错的问题；「测试连接」给出不思考与带思考\n  两个耗时；每个模型还能单独「探测协议」，结论就显示在那一行下面。用不到的\n  「音频」勾选已撤掉\n- 修 ChatGPT.app 升级后 coskey 失效：新版 app 换了内核位置，现在会自动找到，\n  升级后不再卡在启动页、报与真实原因无关的「组织设置无法加载」\n- 修自建供应商的会话被错当成官方：这类会话里改选模型不再报错",
-  "pub_date": "2026-09-27T04:28:16Z",
+  "version": "0.6.0",
+  "notes": "Coskey 0.6.0 — 模型目录更好用，改动即时生效\n\n- 「模型目录」页三个页签改名：用户目录、系统目录、目录模板。目录模板现在能\n  检查并安装新版本、装回旧版本或删掉不用的；下载走设置页新加的「下载镜像」，\n  可选自动 / GitHub / Gitee，拿不准还能测速\n- 内置 DeepSeek、千问、GLM、Kimi、MiniMax 等常用目录模板：装好就有一份现成\n  的目录，不用自己一个个建；每个模板还能一键生成对应目录，模板更新时跟着更新\n- 不需要的可以单独关掉：官方模型能不让它出现在 ChatGPT.app 的模型列表里；\n  自己建的模型也能临时停用，设置原样保留，随时开回来\n- 「模型映射」和「供应商」页更顺手：映射每行默认显示它在 ChatGPT.app 里的\n  名字，点开还能看到用了哪份目录；供应商可以拖动排序，也能直接给某个模型建映射\n- 改动即时生效：加供应商、加模型、加映射或停用，都不用再重启 ChatGPT.app，\n  下一条消息就用新配置（列表最迟约 5 分钟刷新，重启更快；改用户目录仍需重启）\n- 更新应用后包装器会自动升到同一版本，不用再手动装一次；映射指向的模型不在\n  目录里时，打开会话也不再报错，把模型加回目录就好",
+  "pub_date": "2026-10-02T11:56:33Z",
   "min_supported_version": "0.5.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.5.0/Coskey_0.5.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtOd21MYjZoZi9TNElra2hCK0dsSlh0WURjWlFqMjUyU081YU9vdkFkcGNuazlEdGkvNzFBc01DMkdmM3lkR0JEc0J0RU5tWk0rZUVIK1ptcDFwN3dRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwNDgyOTgwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKbFdvUDNPNkxTVVFNRUlnYzcxT0ZUclZ2ZnNLMS9CcXB4TDJSaFRNNUpaYmJkVXpSb0Vtd01kdnRXVUhUWERZOXlFVWtSNi9IZTczejhWbUZyb3VaREE9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.6.0/Coskey_0.6.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUdWM0IrN0VSaU1qYzNlZDJlTmwvN1RYSkxHZm1zaW1ORU1zN1ltcnJoZWxGTkNMRkU3ZFhVMGlyamJodkhlQ0o1emdUbGlRTlZvdFF6K21PMW0zM2dRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwOTQxODYwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKRWhFTktGbVNEWmo5Y1lqTzh4dXFHU1I0cldlWTEzNmYwdnNqdnY0K0Uyb3dlS1BBQS9IeFJHSW5keUNlNE5QelU3OGhIVEg5Q3dhbGpmZnVQR0dsQUE9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.5.0/Coskey_0.5.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUNUWkdBZWE0UEFMajBGYndtWEhaRGFzZTBvRnAxSGtXSXlscGp2L0FwRUdCN2g4QkpuYkI5Y3pVTlFhNmpMYlQzM2VwVm9VR2s0dktWRllEcDVpcnc4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwNDgzMjk2CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKK0V4QlpEckZuSkxXYVNLWFhWeWpiclpDU3RKdjVxemNUbWY2ZDNLd3FtdlJsUE0vZ1U5MHZ5THRRZHNXaDhzSkdHRXovMWlVWTEvVTYxN2cwakFJQmc9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.5.0/Coskey_0.5.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU5hcGloeDZhRHR0VWR2enpoY0FyQW80dDkvbUFZbk1kR09rRm1mQnZDVnhQZzUvL3ZPb2paMmFBbGpZK2tNRk5RSFBWZ0NTczhUaldNM1BwRUEwMEFJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwNDc5MTY0CWZpbGU6Q29za2V5XzAuNS4wX3g2NC1zZXR1cC5leGUKazMyRnZJME5YZlBQVzg3WW94WlM3ZXYvV2VmNC93cTRCZ2xrTDNzNFJmMXNSQyt1Yk4vMTFudlplVzVtVCtESGtTWDVpaTNjVEhBRit6OWNrYUkyRGc9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.6.0/Coskey_0.6.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU5wL2pYd0ZZZFgxeDRmMWFlaGdRZ0hudVg5c1djU2x2Myt5OGtMeTJ5QUZPZGFYOFRoQlFLaVhrcjlrc1pmYVZ4NHhkRi9tODkyZ0poN0xNM3JlR3c4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwOTQyMTkzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKWWp3RzV5TnR4M1djQ1hmSVZmcjlsb0twaUZIT1J5NEVqY1U1Rzc2Q0VVMVpiaS95dnJPZ0ZFcWRLVTVTbUtQRTRueEttVTlOWEpQamNxd3Q4Q2NiRHc9PQo="
     }
   }
 }
