@@ -9,7 +9,9 @@
 #   └── index.json         生成物：每个 id 一条
 #
 # index.json 是本仓的**生成物**，不要手写：
-#   {"meta_templates":[{"id","version","sha256","path","history":[…]}]}
+#   {"catalog_templates":[{"id","version","sha256","path","history":[…]}]}
+#   顶层键现行是 `catalog_templates`；`meta_templates` 是 0.6.0 前的发布键，
+#   读写一律兼容（旧 index.json 仍能接着生成）。
 #   每条一个 id：顶层是最新版本，history 是同一 id 的旧版本（新→旧），
 #   每项 {version,sha256,path}（旧的全量索引 index-all.json 已并入 history）。
 #   path 相对 coskey/models/（如 `1.1.1/deepseek-flash.json`）；
@@ -188,11 +190,19 @@ if not version_dirs:
 old = {}
 
 
+def index_entries(data):
+    """取索引顶层数组：现行键 catalog_templates，兼容历史键 meta_templates。"""
+    for key in ("catalog_templates", "meta_templates"):
+        if key in data:
+            return data[key]
+    raise KeyError("catalog_templates / meta_templates")
+
+
 def load_index(path):
     if not path.is_file():
         return
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))["meta_templates"]
+        data = index_entries(json.loads(path.read_text(encoding="utf-8")))
     except Exception as exc:
         raise SystemExit(f"错误：现有 {path.name} 不可解析：{exc}")
     for e in data:
@@ -297,7 +307,7 @@ for e in entries:
               f"index.json 的 version 是 v{latest[e['id']]['version']}）")
 
 INDEX.write_text(
-    json.dumps({"meta_templates": index_entries}, indent=2, ensure_ascii=False) + "\n",
+    json.dumps({"catalog_templates": index_entries}, indent=2, ensure_ascii=False) + "\n",
     encoding="utf-8",
 )
 n_hist = sum(len(e["history"]) for e in index_entries)
@@ -315,7 +325,8 @@ if [ "$DRY_RUN" = 1 ]; then
 import json, os
 from pathlib import Path
 root = Path(os.environ["MODELS"])
-idx = json.loads((root / "index.json").read_text(encoding="utf-8"))["meta_templates"]
+data = json.loads((root / "index.json").read_text(encoding="utf-8"))
+idx = data.get("catalog_templates", data.get("meta_templates"))
 print("  index.json：" + "、".join(
     f'{e["id"]} v{e["version"]}（历史 {len(e.get("history") or [])}）' for e in idx))
 PYEOF

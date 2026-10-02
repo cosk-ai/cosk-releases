@@ -14,13 +14,17 @@ coskey/models/
 └── index.json         生成物：每个 id 一条（最新版本 + 历史版本）
 ```
 
-`index.json` 是**生成物**，不要手写。每条一个 id：
+`index.json` 是**生成物**，不要手写。顶层是 `catalog_templates` 数组（每条一个 id）：
 
 ```json
-{"id": "deepseek-flash", "version": "1.1.1", "sha256": "…", "path": "1.1.1/deepseek-flash.json",
- "history": [{"version": "1.0.1", "sha256": "…", "path": "1.0.1/deepseek-flash.json"}]}
+{"catalog_templates": [
+ {"id": "deepseek-flash", "version": "1.1.1", "sha256": "…", "path": "1.1.1/deepseek-flash.json",
+  "history": [{"version": "1.0.1", "sha256": "…", "path": "1.0.1/deepseek-flash.json"}]}
+]}
 ```
 
+键名现行是 `catalog_templates`；`meta_templates` 是 0.6.0 前的发布键，
+生成脚本与部署脚本读写都留了回退（旧索引不会卡住下一次生成）。
 顶层 `version` / `sha256` / `path` 是最新版本；`history` 是同一 id 的旧版本
 （**新→旧**），每项 `{version, sha256, path}`，无旧版本时为空数组。
 `path` 相对 `coskey/models/`。客户端读 `index.json` 判断有没有更新；需要旧版本时

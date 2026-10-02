@@ -58,7 +58,11 @@ if (root / "index-all.json").is_file():
     sys.exit("错误：index-all.json 已废弃（内容并入 index.json 的 history）；"
              "重跑 tools/gen-models-index.sh 会删除它")
 try:
-    entries = json.loads(index.read_text(encoding="utf-8"))["meta_templates"]
+    data = json.loads(index.read_text(encoding="utf-8"))
+    # 顶层键现行 catalog_templates；meta_templates 是 0.6.0 前的发布键，读时兼容
+    entries = data.get("catalog_templates", data.get("meta_templates"))
+    if entries is None:
+        raise KeyError("catalog_templates")
 except Exception as exc:
     sys.exit(f"错误：index.json 不可解析：{exc}")
 if not entries:
@@ -188,7 +192,8 @@ echo ""
 SUMMARY=$(MODELS="$MODELS" python3 - <<'PYEOF'
 import json, os
 from pathlib import Path
-idx = json.loads((Path(os.environ["MODELS"]) / "index.json").read_text(encoding="utf-8"))["meta_templates"]
+data = json.loads((Path(os.environ["MODELS"]) / "index.json").read_text(encoding="utf-8"))
+idx = data.get("catalog_templates", data.get("meta_templates"))
 n_hist = sum(len(e.get("history") or []) for e in idx)
 print("、".join(f'{e["id"]} v{e["version"]}' for e in idx)
       + f"（{len(idx)} 个模板 / {n_hist} 个历史版本）")
