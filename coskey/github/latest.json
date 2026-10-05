@@ -1,20 +1,16 @@
 {
-  "version": "0.7.0",
-  "notes": "Coskey 0.7.0 — 官方模型与第三方模型可在同一会话里互切\n\n- 官方模型现在也走 coskey 转发（新增默认策略）：在 ChatGPT.app 里选官方模型，请求由\n  coskey 送到官方后端，消耗的是你的 ChatGPT 订阅额度，不会被悄悄换成某个第三方\n  模型。好处是同一条会话里官方模型和第三方模型可以随时互切，不用再新开会话\n- 官方模型策略只剩两档，设置页可选：unified（默认，官方经 coskey 转发，同会话可\n  互切）/ separate（官方走内核原生 OpenAI、完全不经过 coskey，与第三方是两条\n  独立通路，换来源要开新会话）。旧配置里的 redirect / passthrough 升级时自动\n  转换，不用手工改\n- 设置页新增「与官方目录同名的优先级」：有些供应商用的模型名和官方一样，这时由\n  你决定谁赢得这个名字——auto（默认，官方链路可用时官方优先，否则用你的映射）、\n  official（官方条目接管）、coskey（应用模型接管并显示自己的名字）\n- 本机没登录 ChatGPT 时，选官方模型不再被悄悄换成第三方模型：请求原样交给官方通路，\n  由官方提示登录\n- 修模型名解析：在选择器里回传的模型按应用模型 id 精确匹配，没配置过的名字会明确\n  报错，不再被静默改道到别的模型",
-  "pub_date": "2026-10-05T11:45:31Z",
+  "version": "0.7.1",
+  "notes": "Coskey 0.7.1 — 同名模型不再走错通路，配置更耐版本切换\n\n- 修同名模型走错通路：用 API key 登录 ChatGPT.app 时，与官方目录同名的模型不再被\n  当成官方请求发出去后失败；现在按本机「有没有真正的 ChatGPT 登录态」判断，没登录\n  就照常走你配的映射（设置页「与官方目录同名的优先级」为 auto 时生效）\n- 配置不怕版本来回切：coskey 读配置时不再顺手改写文件，遇到当前版本不认识的写法\n  也只按默认值处理并记一条日志，不再直接报「解析 coskey.toml 失败」打不开。要退回\n  0.6.0 的话，先把 coskey.toml 里 on_official_model 那行写回旧写法（unified 改回\n  redirect、separate 改回 passthrough，语义不变），否则 0.6.0 不认它\n- Windows 安装包补上身份与语言：安装界面支持简体中文和英文（跟随系统语言），\n  「设置 → 应用」里的发布者显示为 cosk；升级安装继续沿用你上次的安装位置，\n  不会多装一份",
+  "pub_date": "2026-10-05T17:12:22Z",
   "min_supported_version": "0.6.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.0/Coskey_0.7.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUd6bmoxZStRZlFDdkJROHNMUEFSMHdFMWkvejljWWhTeHdYZEhqUk1SWmdlZlAyRndEaUEwUTRHZ0lIU1R2dGtCblhRSHlidEdWdlZZRHM2ZnBUandJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMjAwMzk0CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKQjFkdWh2TWh5dDFka3hZankyMVM0K3orZmFrYVNMTTlxZkZMNGg0MHVobm1PZHBjNk9RU2REc2ZRR1dSYmJFdEZtcWFUNWVDaEF6SnRUbktzSURqQXc9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.1/Coskey_0.7.1_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUJReWdPVHQrY1Z2aFZQZFR3SHFhVXUyM1Ivem9kTmpVeGV0VnhkbWFKZFlqMVZ3TTE3QzYzOVg4WEtMaHVLR2dSQ0FMbWxrRU1nSW5rcjVHTVQwdHdVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMjE5OTc1CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKYVhpakNVYU52YzB0azRPdTNrdnJHZTFGdGZPSjNJcDdGK3Iybmprd2I4THFTQjNaT0VOSVVoR3dMakVvamZjWGI0Um1ZZjJsWWNoaHZ4akJmMEQ5REE9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.0/Coskey_0.7.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUU0U1ZDTUxPUnMwRW5LOXhmL25laDllMExudW1pWGtXdnB4aEVBbXg2VlM4ZUxLUmZkT2UwWVBzbjRwaTNLQXlZREV5WWNmZVVmRnZRdldSZUhOakFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMjAwNzMwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZlM5RFFZTTFKUytxa0FjeXNNY3BVZGtwSFJHSmR1KzdsMVp6U2l0RlVEQTZYNHZBcmZ0d2gwTGVpV3hEUi8yWjE0MCtIYm9KbUxsYjBYMmxoK3MvQWc9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.0/Coskey_0.7.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUlBYnBGNzVuZ3QyTGtrUkZvY3QxYldQVHpHditrdnVjOFNqVWZUdGRycm0yOWJ6R3cvb0ZLeWtKRTJlcW9GTTE1Rll0R0V6YlhkejZrL2RvVlhFTWdVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMTc4OTA3CWZpbGU6Q29za2V5XzAuNy4wX3g2NC1zZXR1cC5leGUKT0pSRGpGODYzbFJ2QkdSbWNJWFM4bnJEZVNxVHRhZ3FxVGtCQVg5Ty81M29aOG0rVU41Y3FRUUJyNlZjUWVUdWFjMFNIcFZSZkZONkpEcjRUMzRJQ1E9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.1/Coskey_0.7.1_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUd0YWR4MlhPOERqY0pkOGRsU0pmZmxDMW5YYWdLYkJDOS9XLy9NRjBNWktIRVJRZ0ZSUVhvbUZOZnRNWEN1TzZ1M3lvV0JlQVlRSDhzMW0vZWZRWWdnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMjIwMzQxCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKYU1NVFRIeFZpMVdMeFEraVpIblY1RXZnU2JCUUJqeHEyZHh2bUJsdE94ZmhVQkQ3dnZHdGYxVUFDQTRyMW9uNHVTSWFsUzJtUDcrVTNRTGVZUVVxQkE9PQo="
     }
   }
 }
