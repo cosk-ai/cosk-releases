@@ -1,20 +1,16 @@
 {
-  "version": "0.6.0",
-  "notes": "Coskey 0.6.0 — 模型目录更好用，改动即时生效\n\n- 「模型目录」页三个页签改名：用户目录、系统目录、目录模板。目录模板现在能\n  检查并安装新版本、装回旧版本或删掉不用的；下载走设置页新加的「下载镜像」，\n  可选自动 / GitHub / Gitee，拿不准还能测速\n- 内置 DeepSeek、千问、GLM、Kimi、MiniMax 等常用目录模板：装好就有一份现成\n  的目录，不用自己一个个建；每个模板还能一键生成对应目录，模板更新时跟着更新\n- 不需要的可以单独关掉：官方模型能不让它出现在 ChatGPT.app 的模型列表里；\n  自己建的模型也能临时停用，设置原样保留，随时开回来\n- 「模型映射」和「供应商」页更顺手：映射每行默认显示它在 ChatGPT.app 里的\n  名字，点开还能看到用了哪份目录；供应商可以拖动排序，也能直接给某个模型建映射\n- 改动即时生效：加供应商、加模型、加映射或停用，都不用再重启 ChatGPT.app，\n  下一条消息就用新配置（列表最迟约 5 分钟刷新，重启更快；改用户目录仍需重启）\n- 更新应用后包装器会自动升到同一版本，不用再手动装一次；映射指向的模型不在\n  目录里时，打开会话也不再报错，把模型加回目录就好",
-  "pub_date": "2026-10-02T11:56:33Z",
-  "min_supported_version": "0.5.0",
+  "version": "0.7.0",
+  "notes": "Coskey 0.7.0 — 官方模型与第三方模型可在同一会话里互切\n\n- 官方模型现在也走 coskey 转发（新增默认策略）：在 ChatGPT.app 里选官方模型，请求由\n  coskey 送到官方后端，消耗的是你的 ChatGPT 订阅额度，不会被悄悄换成某个第三方\n  模型。好处是同一条会话里官方模型和第三方模型可以随时互切，不用再新开会话\n- 官方模型策略只剩两档，设置页可选：unified（默认，官方经 coskey 转发，同会话可\n  互切）/ separate（官方走内核原生 OpenAI、完全不经过 coskey，与第三方是两条\n  独立通路，换来源要开新会话）。旧配置里的 redirect / passthrough 升级时自动\n  转换，不用手工改\n- 设置页新增「与官方目录同名的优先级」：有些供应商用的模型名和官方一样，这时由\n  你决定谁赢得这个名字——auto（默认，官方链路可用时官方优先，否则用你的映射）、\n  official（官方条目接管）、coskey（应用模型接管并显示自己的名字）\n- 本机没登录 ChatGPT 时，选官方模型不再被悄悄换成第三方模型：请求原样交给官方通路，\n  由官方提示登录\n- 修模型名解析：在选择器里回传的模型按应用模型 id 精确匹配，没配置过的名字会明确\n  报错，不再被静默改道到别的模型",
+  "pub_date": "2026-10-05T11:45:31Z",
+  "min_supported_version": "0.6.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.6.0/Coskey_0.6.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUdWM0IrN0VSaU1qYzNlZDJlTmwvN1RYSkxHZm1zaW1ORU1zN1ltcnJoZWxGTkNMRkU3ZFhVMGlyamJodkhlQ0o1emdUbGlRTlZvdFF6K21PMW0zM2dRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwOTQxODYwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKRWhFTktGbVNEWmo5Y1lqTzh4dXFHU1I0cldlWTEzNmYwdnNqdnY0K0Uyb3dlS1BBQS9IeFJHSW5keUNlNE5QelU3OGhIVEg5Q3dhbGpmZnVQR0dsQUE9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.0/Coskey_0.7.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUd6bmoxZStRZlFDdkJROHNMUEFSMHdFMWkvejljWWhTeHdYZEhqUk1SWmdlZlAyRndEaUEwUTRHZ0lIU1R2dGtCblhRSHlidEdWdlZZRHM2ZnBUandJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMjAwMzk0CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKQjFkdWh2TWh5dDFka3hZankyMVM0K3orZmFrYVNMTTlxZkZMNGg0MHVobm1PZHBjNk9RU2REc2ZRR1dSYmJFdEZtcWFUNWVDaEF6SnRUbktzSURqQXc9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.6.0/Coskey_0.6.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU5wL2pYd0ZZZFgxeDRmMWFlaGdRZ0hudVg5c1djU2x2Myt5OGtMeTJ5QUZPZGFYOFRoQlFLaVhrcjlrc1pmYVZ4NHhkRi9tODkyZ0poN0xNM3JlR3c4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwOTQyMTkzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKWWp3RzV5TnR4M1djQ1hmSVZmcjlsb0twaUZIT1J5NEVqY1U1Rzc2Q0VVMVpiaS95dnJPZ0ZFcWRLVTVTbUtQRTRueEttVTlOWEpQamNxd3Q4Q2NiRHc9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.6.0/Coskey_0.6.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUlFNG44VHY3OW9vMnpoaUJjdUNFQ1pkdTVwbnlqWEZJU1pzMHkzUkEyUko5YjNGU1J6R2xzUENENlpINitkSXFDTDJaQlNQdEpLN2JCQTFrU3paZmdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwOTQwODIyCWZpbGU6Q29za2V5XzAuNi4wX3g2NC1zZXR1cC5leGUKL3lNbyszaVFWZ1pZWXFZWnpNL0U1NGZYTXp4RDYvOFlaYnExUXpjSStRdXQvQnRHVjBLT1RKTjZYRUNlcy8xMjdsbTRVOUNTeStpOEZJN1NTdkk1Qmc9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.0/Coskey_0.7.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUU0U1ZDTUxPUnMwRW5LOXhmL25laDllMExudW1pWGtXdnB4aEVBbXg2VlM4ZUxLUmZkT2UwWVBzbjRwaTNLQXlZREV5WWNmZVVmRnZRdldSZUhOakFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMjAwNzMwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZlM5RFFZTTFKUytxa0FjeXNNY3BVZGtwSFJHSmR1KzdsMVp6U2l0RlVEQTZYNHZBcmZ0d2gwTGVpV3hEUi8yWjE0MCtIYm9KbUxsYjBYMmxoK3MvQWc9PQo="
     }
   }
 }
