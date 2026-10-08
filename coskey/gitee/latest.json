@@ -1,20 +1,16 @@
 {
-  "version": "0.7.2",
-  "notes": "Coskey 0.7.2 — 状态里的中转不再指向空端口，模型目录跟着内核走\n\n- 体检和状态页里的「中转」更可信了：ChatGPT.app 每次启动会另起几个临时进程，它们\n  各自也会拉起一个中转并覆盖端口记录，于是记录偶尔指向一个已经关掉的端口，看起来\n  时好时坏。现在端口记录带上属主进程，属主还在跑就不会被顶掉——显示「端口记录已\n  过期」说明这条记录来自已退出的包装器，重开 app 即刷新；显示「未响应」才是真有\n  异常。Windows 上也不再因为包装器的路径写法不同就被误判成已退出\n\n- 模型目录会跟着内核更新：Windows 上 ChatGPT.app 的内核可以单独升级（app 版本\n  不变），以前这种时候不会重新读一遍内核里的官方模型清单，状态页的「目录模式漂移」\n  写着「下次启动自动重建」，却重启多少次都不消失。现在改按内核文件本身判断，内核\n  一换（哪怕版本号没变）就重新生成，提示不再空转；coskey 自己升级换了内置的默认\n  目录模板时同样会重新生成。升到 0.7.2 后首次启动会重建一次模型目录，属正常",
-  "pub_date": "2026-10-06T16:42:16Z",
+  "version": "0.7.3",
+  "notes": "Coskey 0.7.3 — 系统目录操作更顺手，没登录官方也能在同一会话里换模型\n\n- 修「用 API key 登录时，同一条会话里换不了第三方模型」：这类机器上没有 ChatGPT 登录态，\n  以前用官方模型名开的新会话不会被 coskey 接管，模型来源在建会话时就固定住了，之后在同一\n  会话里改选第三方模型会直接报错。现在官方模型名一律照常接管（默认的 unified 档）：没登录\n  时 coskey 会明确告诉你「未登录 ChatGPT」，并提示你直接在这条会话里改选第三方模型即可，\n  不用新开会话\n- 系统目录（官方模型在 ChatGPT.app 里的形态）操作更直观：表格里的「展示」「启用」改成\n  只读状态列，两件事都收进操作列的图标动作，图标按动作取形（眼睛 = 展示 / 不展示，\n  电源 = 启用 / 停用），与模型映射页同一套口径\n- 「编辑」改成弹窗：默认窗口、窗口上限、展示、启用一次保存，不再分两处改\n- 新增三个批量动作（与「重新生成系统目录」同一行）：批量不展示、批量停用、批量恢复\n  官方配置——整批一次完成、只重新合并一次缓存，不会做到一半留下半套状态；当前没事可做\n  的那枚按钮会置灰",
+  "pub_date": "2026-10-08T00:22:50Z",
   "min_supported_version": "0.7.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.2/Coskey_0.7.2_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUFaZWVrMjBvZnpqQkVVeVlRNWhDMVVCTlJPRS80aDVuNENJRVR1ckF2Z1BzZSs5NzhHckVsUWh4Mk9ac3hKQVhqVGhoemVpNDNmbEQ0K2RDQmx5WEF3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMzA0NjY0CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKSmFHd3BVS3N0NUtaMlJRZUlyeUovb2xCcnZuMGFnUSt1eHZmeUdpbW9sZ3ZDR2hUaFFWRDU2QkVIWVJVVldYZWZxcVRyOVBqdmhvT2lOV3d4OGJpQXc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.3/Coskey_0.7.3_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtGUkF6OGN2ZzdrcTdGZE1ZUXZPSko2WXl0T0drcFNOVm96ejRsd0MxSTRvWjhycXhGQy81UXZrc25VcUUzbXZkcHlBdEVUdE5oN3dEbENuZXVwREEwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxNDE4NzA3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKYXhSbHloeWc0VjNscHlucmtPbmJQQ0twWnlHMUQzbmVlQmtmbnV3YnVWRXROSGFPQzk0aTBlTitFcEFRZit3K2tIY2p1WU1UZDNCY1dZaEZiOFNuRFE9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.2/Coskey_0.7.2_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUsxaGw3d1BVWWE0bkcreGRONXdiNmNSL2ZCa1JVeEZINUN5RzRlWEo1MkJvNlVTNWpjdW1EZGJTcnZrQWdqRmZvR2Q2ZXNxeXcxWGNmUEN6eDlQWXcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMzA0OTM1CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKUzdvTWwyTllOSjRhaWVxdVpZanBKblEyZGVlZmVidkl5QkM2cG02WmNOU1lzVDR4bDR0UHJVMGEycVF0ekhKc0tLVTViWitQOGIzUlViQnFSbzJERHc9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.2/Coskey_0.7.2_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU1lSkRZQTBIZzhPQ1FmM2FFSCsrQ2N3Wm1KN2FMTFFMdWdsaENRQ1N6SXB6ckwxYzZhcFZDRFZ1YmRZS0d4Q0c5TDgyRzcxdjlYbEZMWDF2RWl2ZFFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxMzAzNDE3CWZpbGU6Q29za2V5XzAuNy4yX3g2NC1zZXR1cC5leGUKTzFnUTduTlpSbnRvZnVEV3Q5N3FOMHRJVzdOeTE0UHVDeHB0NFlNajZlS25iN1RqVmFJcUZtaUExYWZ6c3VWU3RxTTNGY0tISFhLazRHTEhYTURuQUE9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.3/Coskey_0.7.3_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUQyaXRETDlTTmVXMlMyVzNENCtDMGg0ZFFmbzhmM29uOXNZY1NZcWRRUjFISnRyM2tiWWFjdC82OUwzejVUMEs4dXllQXRtY1dvTXorUGtlU1dBeFFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxNDE4OTcwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKNFloWjdKVmFLTVlmU004a0dPbWkyVzFBWm9FWjVuWGF5WXBORmppUU9VVFEvSUV3Y0FBL2ZVKzBTU2lwRytaWlFhbHZ5NDBsTUNMeWoyTHlKTTB5Q3c9PQo="
     }
   }
 }
