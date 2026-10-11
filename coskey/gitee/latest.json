@@ -11,6 +11,10 @@
     "darwin-x86_64": {
       "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.4/Coskey_0.7.4_x64.app.tar.gz",
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU92ZlhYdTVvVVplR21MTjZsMzZDWWVSZUtIeTlEcFI4M0Z3b0xHblNUVE56RW0wL3Q1dWRGYXUvY2c5eFNpZW4rSTlKUUQzdkd3QjhCMEx6VGZUaUFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxNzI1MDI3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKWGJHMkl6V3ZHbDFweDc2Q3FPZDl6QWlPVDhWVVFIOC9LajZsQUVnR1E5SkI1L2hyTm9QSDNiWm1qZ1hNN09jUnQ2ZXZKTlJaNG1EZGIyTE5oWlFhRHc9PQo="
+    },
+    "windows-x86_64": {
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.7.4/Coskey_0.7.4_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU44YkxOZllTbG03UjA2UW1nREpTTVB2VXNrcmdseEFsVi9KQUhQdGFucG9rRW1NWEJ0NkZ1RmRYdHZRam9GVE8vSlVQaDZOWDZXTmYvTlNHQmx5TUFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxNzI0MjcyCWZpbGU6Q29za2V5XzAuNy40X3g2NC1zZXR1cC5leGUKL3JtYmx3aXFuTThIcDVYY1dLVk55VzFSS2VLaXlmV0Z6WHJ2Sk16RnE4SVk3Zk42SVMyY29pU2ViV3NEZ1pjSmoyT0JiQnBIc0NWK2M3WmltMXZXRHc9PQo="
     }
   }
 }
