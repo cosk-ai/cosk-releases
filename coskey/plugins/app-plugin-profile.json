@@ -11,6 +11,14 @@
         "codex-app-tools",
         "unified-computer-use"
       ],
+      "alwaysAvailable": [
+        "codex-app-tools",
+        "latex",
+        "visualize"
+      ],
+      "capabilityGated": {
+        "unified-computer-use": "browser_use_tinysky"
+      },
       "platformExclusions": {
         "windows": [
           "messages",

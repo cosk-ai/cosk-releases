@@ -56,7 +56,8 @@ except Exception as exc:
     sys.exit(f"错误：{profile.name} 不可解析：{exc}")
 if not isinstance(doc, dict):
     sys.exit(f"错误：{profile.name} 顶层应是对象")
-if doc.get("schemaVersion") != 1:
+schema = doc.get("schemaVersion")
+if isinstance(schema, bool) or not isinstance(schema, int) or schema != 1:
     sys.exit(f"错误：不支持的 schemaVersion：{doc.get('schemaVersion')!r}（只认 1）")
 profiles = doc.get("profiles")
 if not isinstance(profiles, list) or not profiles:
@@ -64,19 +65,20 @@ if not isinstance(profiles, list) or not profiles:
 
 NAME_RE = re.compile(r"^[A-Za-z0-9_.-]+$")
 PLATFORMS = {"macos", "windows", "linux"}
+BASELINE_ALWAYS_AVAILABLE = ["codex-app-tools", "latex", "visualize"]
 
 
 def valid_version(value):
     if not isinstance(value, str) or not value.strip():
         return False
-    return all(part.isdigit() for part in value.strip().split("."))
+    return all(part and part.isascii() and part.isdigit() for part in value.strip().split("."))
 
 
 def check_names(label, names):
     if not isinstance(names, list):
         sys.exit(f"错误：{label} 应是数组")
     for name in names:
-        if not isinstance(name, str) or not NAME_RE.match(name):
+        if not isinstance(name, str) or not NAME_RE.fullmatch(name):
             sys.exit(f"错误：{label} 含非法插件名：{name!r}")
 
 
@@ -87,8 +89,20 @@ for idx, entry in enumerate(profiles, 1):
     start = entry.get("startVersion")
     if not valid_version(start):
         sys.exit(f"错误：profiles[{idx}] 的 startVersion 不是点分数字版本号：{start!r}")
-    check_names(f"profiles[{idx}].builtinInstall", entry.get("builtinInstall", []))
-    check_names(f"profiles[{idx}].hidden", entry.get("hidden", []))
+    builtin = entry.get("builtinInstall", [])
+    hidden = entry.get("hidden", [])
+    always = entry.get("alwaysAvailable", BASELINE_ALWAYS_AVAILABLE)
+    check_names(f"profiles[{idx}].builtinInstall", builtin)
+    check_names(f"profiles[{idx}].hidden", hidden)
+    check_names(f"profiles[{idx}].alwaysAvailable", always)
+    gated = entry.get("capabilityGated", {})
+    if not isinstance(gated, dict):
+        sys.exit(f"错误：profiles[{idx}].capabilityGated 应是对象")
+    for name, gate in gated.items():
+        if not isinstance(name, str) or not NAME_RE.fullmatch(name):
+            sys.exit(f"错误：profiles[{idx}].capabilityGated 含非法插件名：{name!r}")
+        if not isinstance(gate, str) or not gate.strip():
+            sys.exit(f"错误：profiles[{idx}].capabilityGated.{name} 的能力值为空")
     exclusions = entry.get("platformExclusions", {})
     if not isinstance(exclusions, dict):
         sys.exit(f"错误：profiles[{idx}].platformExclusions 应是对象")
@@ -98,27 +112,37 @@ for idx, entry in enumerate(profiles, 1):
         check_names(f"platformExclusions.{platform}", names)
     canonical.append({
         "startVersion": start,
-        "builtinInstall": entry.get("builtinInstall", []),
-        "hidden": entry.get("hidden", []),
+        "builtinInstall": builtin,
+        "hidden": hidden,
+        "alwaysAvailable": always,
+        "capabilityGated": {k: gated[k] for k in sorted(gated)},
         "platformExclusions": {k: exclusions[k] for k in sorted(exclusions)},
     })
-    print(f"  {start}：内置安装 {len(entry.get('builtinInstall', []))} 个、"
-          f"隐藏 {len(entry.get('hidden', []))} 个")
+    print(f"  {start}：内置安装 {len(builtin)} 个、隐藏 {len(hidden)} 个、"
+          f"常驻 {len(always)} 个、能力门槛 {len(gated)} 个")
 
-# 可选 sha256：接受 profiles 数组、去掉该字段后的整份文件、原始字节三种口径
+# 可选 sha256：与客户端一样，接受 profiles/整份文件的紧凑与 pretty 序列化，以及原始字节
 want = doc.get("sha256")
 if want is not None:
-    want = str(want).strip().lower()
+    if not isinstance(want, str):
+        sys.exit("错误：sha256 应是字符串")
+    want = want.strip().lower()
     if len(want) != 64 or any(c not in "0123456789abcdef" for c in want):
         sys.exit("错误：sha256 不是 64 位十六进制")
 
-    def digest(value):
-        data = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode()
+    def digest(value, pretty=False):
+        if pretty:
+            data = json.dumps(value, ensure_ascii=False, indent=2).encode()
+        else:
+            data = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode()
         return hashlib.sha256(data).hexdigest()
 
+    whole = {"schemaVersion": 1, "profiles": canonical}
     accepted = {
         digest(canonical),
-        digest({"schemaVersion": 1, "profiles": canonical}),
+        digest(canonical, pretty=True),
+        digest(whole),
+        digest(whole, pretty=True),
         hashlib.sha256(raw).hexdigest(),
     }
     if want not in accepted:

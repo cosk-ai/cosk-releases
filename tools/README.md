@@ -116,8 +116,10 @@ tools/deploy-app-plugin-profile.sh
 
 整目录发布：`coskey/plugins/` 下的文件会一并上线，profile 最后落地。脚本按客户端同一套规则
 自检：`schemaVersion` 必须为 1；`profiles` 非空；`startVersion` 是点分数字版本号；插件名只含
-字母、数字与 `-_.`；`platformExclusions` 只认 `macos` / `windows` / `linux`；写了可选
-`sha256` 时必须与内容一致。
+字母、数字与 `-_.`；`alwaysAvailable` 缺失时按 `codex-app-tools` / `latex` / `visualize`
+处理；`capabilityGated` 的值必须是非空能力名；`platformExclusions` 只认
+`macos` / `windows` / `linux`；写了可选 `sha256` 时，接受 profiles 或整份文件的紧凑 /
+pretty 序列化，以及原始字节三种口径。
 
 ## 环境变量
 
