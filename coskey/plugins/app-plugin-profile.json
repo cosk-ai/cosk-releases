@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "profiles": [
+    {
+      "startVersion": "26.1013.40934",
+      "builtinInstall": [
+        "codex-app-tools",
+        "unified-computer-use"
+      ],
+      "hidden": [
+        "codex-app-tools",
+        "unified-computer-use"
+      ],
+      "platformExclusions": {
+        "windows": [
+          "messages",
+          "record-and-replay",
+          "computer-history"
+        ]
+      }
+    }
+  ]
+}
