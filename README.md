@@ -20,6 +20,7 @@ cosk-releases/
     ├── gitee/latest.json    # 清单（同版本）：产物 URL → gitee.com
     ├── models/              # 元模板：<版本>/<id>.json + index.json（生成物，含历史版本）
     ├── provider/            # 常用供应商预设：provider-presets.json（+ 可选 provider-icon/）
+    ├── plugins/             # 应用插件 profile：app-plugin-profile.json
     └── notes/               # 更新说明
 ```
 

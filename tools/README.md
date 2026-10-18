@@ -50,6 +50,7 @@ tools/deploy-models.sh
 | `gen-models-index.sh` | 扫描 `coskey/models/<版本>/<id>.json` → 生成 `index.json`（每 id 一条，含 `history`）→ 提交并推送 GitHub + Gitee |
 | `deploy-models.sh` | 自检（索引与 sha256 对应、`history` 版本低于当前、目录里每个模板都被覆盖）→ 传站点 → 原子就位 → 回读核对 |
 | `deploy-provider-presets.sh` | 自检（列表字段、id 合法且不重复）→ 传站点 → 原子就位 → 回读核对 |
+| `deploy-app-plugin-profile.sh` | 自检（`schemaVersion`、`startVersion`、插件名、平台、可选 `sha256`）→ 传站点 → 原子就位 → 回读核对 |
 
 **版本规则**（`index.json` 是版本事实源，客户端只在版本更高时提示更新）：
 
@@ -91,6 +92,32 @@ tools/deploy-provider-presets.sh
 脚本自检要求每条含 `id` / `name` / `base_url` / `version`，`id` 合法（同 `service::valid_id`）且不重复；
 `icon` 写相对路径时本地必须有对应文件（缺了只告警，不拦发布）；写 `http(s)://` 绝对地址则运行时远端取图。
 改了某条的字段就抬那条的 `version`，否则客户端拿不到更新。
+
+## 应用插件 profile（`coskey/plugins/`）
+
+Coskey 的 `app check` / `app repair` 读取的版本化插件名单（约定见 coskey 仓库设计 `0021` §5.3.1）。
+客户端依次尝试 GitHub → Gitee → cosk.ai，cosk.ai 是保底入口。内容来自产品仓库 coskey 的
+`src/resources/plugins/app-plugin-profile.json`，**本仓不生成**，同步过来提交即可。
+
+```bash
+cp <coskey 仓库>/src/resources/plugins/app-plugin-profile.json coskey/plugins/
+```
+
+```bash
+# 部署到 cosk.ai
+tools/deploy-app-plugin-profile.sh
+#    加 --dry-run 只做本地自检与计划
+```
+
+| 入口 | URL |
+|---|---|
+| app（不缓存，立即生效） | `https://www.cosk.ai/data/app/coskey/plugins/app-plugin-profile.json` |
+| 直读（缓存 600s） | `https://www.cosk.ai/data/releases/coskey/plugins/app-plugin-profile.json` |
+
+整目录发布：`coskey/plugins/` 下的文件会一并上线，profile 最后落地。脚本按客户端同一套规则
+自检：`schemaVersion` 必须为 1；`profiles` 非空；`startVersion` 是点分数字版本号；插件名只含
+字母、数字与 `-_.`；`platformExclusions` 只认 `macos` / `windows` / `linux`；写了可选
+`sha256` 时必须与内容一致。
 
 ## 环境变量
 
