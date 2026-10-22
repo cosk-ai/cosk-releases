@@ -1,20 +1,16 @@
 {
-  "version": "0.8.0",
-  "notes": "Coskey 0.8.0 — 打开会话不再被全局模型顶掉，会话页更好懂\n\n- 修「点开一下会话，模型就被换成全局模型」：现在打开已适配的会话，用的就是这条\n  会话自己的模型——有钉住用钉住值，没钉住跟随全局\n- 会话页一眼看懂「这条会话归谁管」：已适配的首行直接写 coskey，内核里的旧值降为\n  下面一行小字；已适配的会话不再挂「provider 不可解析」红标\n- 本地 / 云内置来源的会话不再被误判成「打开报错」，想交给 coskey 管时也能正常适配\n- 会话页用词与交互收口：适配 / 原生 / 可转交·已转交 一套词，命令行同一口径；\n  徽标最多显示两枚，行内按钮改图标（归档的会变灰并说明原因），分页条上下各一条，\n  批量操作区移到右下角",
-  "pub_date": "2026-10-14T15:21:52Z",
-  "min_supported_version": "0.7.0",
+  "version": "0.9.0",
+  "notes": "Coskey 0.9.0 — 一键修复 ChatGPT.app 的 Browser、中文界面和电脑操控\n\n- 状态页新增「ChatGPT.app」检测：分别检查 Browser 插件、浏览器扩展连接、中文界面、\n  电脑操控，以及这些功能依赖的七项能力值；两小时内复用结果，也可随时「重新检测」。命令行可用\n  `coskey app check` 查看同样的问题，用 `coskey app repair --id <检查项>` 修复单项\n- Browser 开关置灰、选了中文仍显示英文，或找不到「电脑操控 → 任意应用」时，可以点\n  「一键修复」：先列出要改的内容并确认，再退出 ChatGPT.app、按需补齐插件配置并写入\n  离线能力，完成后重启 ChatGPT.app 即可生效\n- macOS 和 Windows 均已适配。离线能力写入适用于 API key / 无会话场景；不会修改\n  ChatGPT.app 安装包、账号文件或站点策略，也不会替你安装插件或开启系统权限\n- 修复提示更清楚：确认框会说明需要退出正在进行的会话，打开 ChatGPT.app 时会显示\n  「正在打开」，不会让人误以为按钮没反应",
+  "pub_date": "2026-10-22T23:25:31Z",
+  "min_supported_version": "0.8.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.8.0/Coskey_0.8.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtYUHdpbHROb0VjN040TnkyMTdKU2lEeHVad3hrc3I3L2NqR2QxM1BRcFN1SFJFRmpvM2Zmb1RiUWg0OHRhN0ZvRVJqUjYzd29nNWdUZ3kwamhRY2dVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxOTkxMTkzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKeFR1bkdUQlRvdUVIWGp3eTY4QzJCOTMxQy94TlUwcmUraHV2OEVubmhab0ZzQTl4Q3FFZ1IyZ3FyYkk3VVpZMWFuZ0ZpZnkzU3E5c2R6Z0cxQ0s2RGc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.9.0/Coskey_0.9.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUFvU21KMFpzRnRpekduM21rM1lleGx0OENJT2xobXF1QXFwdmpROXR3d2xQV1ZTVmpFN0RBR3I3WmdEREN1YzM4OUg1MFBxRXQrOEttRDhDNElDWUFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkyNzExMzgzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKSDBxZWFKR0hXc2I2cHU3TEdiZXFGU3hZQ1VBb1dIYlVRUGlXWHRUdHh1ODVvR2Y0UGVmbzdWOUFjQVJXYk9WVkZkRnFEdTg2RS91SkZoc0FhcS9sQ0E9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.8.0/Coskey_0.8.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUhBZkVBUUxVN21oS0tZM3N5TnRXSEYzM0ZoOVNmRGk4aVNZV2MvOUVXR2RHMENjZVM2ZExrRUhuVitTZFRTdnc5U0JVMEVhdG00QytvWGdtSXluTkFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxOTkxMzExCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKNDA4UUlsQ3FaTzl6ZmEycHpJcUgwRVVFaExmU0RNSlFsUzN5dWlOVWIrMDJ4V1hkUXNaU29SQWMrSUpndlJmaDBOKzA2ZDkvdnNYQW4yNlk3R1NxQkE9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.8.0/Coskey_0.8.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUZSSlFvTEhxaGlNVUFlR2szWWtsMDY1Tkg1eHQraWI3VnQ0VW1sMDZFVDE0ak9MR3lqOU9ER3YxMTVCV2FnR0puMGU0TkgwMjRKU2lYb0FKRTNOdEF3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkxOTkwNTI4CWZpbGU6Q29za2V5XzAuOC4wX3g2NC1zZXR1cC5leGUKWm9qcXgvNGhJYlRGMks1RTB4Y25ONC9zdTYyc0JvZEk2eHBOZ1NRME1oeTJ0MEx4VUh4QjE1ZTFMSnhNbFF0QkVqSmJuU3ZtcENFRWNCUUwyaitrQ2c9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.9.0/Coskey_0.9.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtKaUhTYVZnNGtnQ25jZFdFcTQ5NnJVZy9iL251RWZwQWtocXkrWXRkaWE3V095VU45bjJEQmk3WTNMYkNGbFJwK3dtRXJMVkJPSnpsbTFrQ3A0VWdzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkyNzExNTMwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKWjRieUFpbEV2OExwMWJDTTc0TFJickk0aUk2b25DRCtQSU9sdWRRNHJBdm9MMHdaZWxTWi9TVWZScm9oSlhrZWg1M2FrRWZaR2RmMlJOUTVWQXp0Qmc9PQo="
     }
   }
 }
