@@ -59,13 +59,11 @@ if not isinstance(doc, dict):
 schema = doc.get("schemaVersion")
 if isinstance(schema, bool) or not isinstance(schema, int) or schema != 1:
     sys.exit(f"错误：不支持的 schemaVersion：{doc.get('schemaVersion')!r}（只认 1）")
-profiles = doc.get("profiles")
-if not isinstance(profiles, list) or not profiles:
-    sys.exit("错误：profiles 应是非空数组")
 
 NAME_RE = re.compile(r"^[A-Za-z0-9_.-]+$")
 PLATFORMS = {"macos", "windows", "linux"}
 BASELINE_ALWAYS_AVAILABLE = ["codex-app-tools", "latex", "visualize"]
+BASELINE_APP_MATERIALIZED = ["messages"]
 
 
 def valid_version(value):
@@ -82,46 +80,93 @@ def check_names(label, names):
             sys.exit(f"错误：{label} 含非法插件名：{name!r}")
 
 
-canonical = []
-for idx, entry in enumerate(profiles, 1):
+def check_profile(entry, label):
     if not isinstance(entry, dict):
-        sys.exit(f"错误：profiles[{idx}] 不是对象")
+        sys.exit(f"错误：{label} 不是对象")
     start = entry.get("startVersion")
     if not valid_version(start):
-        sys.exit(f"错误：profiles[{idx}] 的 startVersion 不是点分数字版本号：{start!r}")
+        sys.exit(f"错误：{label}.startVersion 不是点分数字版本号：{start!r}")
+    windows_start = entry.get("windowsStartVersion")
+    if windows_start is not None and not valid_version(windows_start):
+        sys.exit(f"错误：{label}.windowsStartVersion 不是点分数字版本号：{windows_start!r}")
     builtin = entry.get("builtinInstall", [])
     hidden = entry.get("hidden", [])
     always = entry.get("alwaysAvailable", BASELINE_ALWAYS_AVAILABLE)
-    check_names(f"profiles[{idx}].builtinInstall", builtin)
-    check_names(f"profiles[{idx}].hidden", hidden)
-    check_names(f"profiles[{idx}].alwaysAvailable", always)
+    materialized = entry.get("appMaterialized", BASELINE_APP_MATERIALIZED)
+    check_names(f"{label}.builtinInstall", builtin)
+    check_names(f"{label}.hidden", hidden)
+    check_names(f"{label}.alwaysAvailable", always)
+    check_names(f"{label}.appMaterialized", materialized)
     gated = entry.get("capabilityGated", {})
     if not isinstance(gated, dict):
-        sys.exit(f"错误：profiles[{idx}].capabilityGated 应是对象")
+        sys.exit(f"错误：{label}.capabilityGated 应是对象")
     for name, gate in gated.items():
         if not isinstance(name, str) or not NAME_RE.fullmatch(name):
-            sys.exit(f"错误：profiles[{idx}].capabilityGated 含非法插件名：{name!r}")
+            sys.exit(f"错误：{label}.capabilityGated 含非法插件名：{name!r}")
         if not isinstance(gate, str) or not gate.strip():
-            sys.exit(f"错误：profiles[{idx}].capabilityGated.{name} 的能力值为空")
+            sys.exit(f"错误：{label}.capabilityGated.{name} 的能力值为空")
     exclusions = entry.get("platformExclusions", {})
     if not isinstance(exclusions, dict):
-        sys.exit(f"错误：profiles[{idx}].platformExclusions 应是对象")
+        sys.exit(f"错误：{label}.platformExclusions 应是对象")
     for platform, names in exclusions.items():
         if platform not in PLATFORMS:
             sys.exit(f"错误：platformExclusions 含未知平台：{platform!r}")
         check_names(f"platformExclusions.{platform}", names)
-    canonical.append({
-        "startVersion": start,
+    canonical = {"startVersion": start}
+    if windows_start is not None:
+        canonical["windowsStartVersion"] = windows_start
+    canonical.update({
         "builtinInstall": builtin,
         "hidden": hidden,
         "alwaysAvailable": always,
         "capabilityGated": {k: gated[k] for k in sorted(gated)},
         "platformExclusions": {k: exclusions[k] for k in sorted(exclusions)},
+        "appMaterialized": materialized,
     })
     print(f"  {start}：内置安装 {len(builtin)} 个、隐藏 {len(hidden)} 个、"
-          f"常驻 {len(always)} 个、能力门槛 {len(gated)} 个")
+          f"常驻 {len(always)} 个、能力门槛 {len(gated)} 个、"
+          f"应用物化 {len(materialized)} 个")
+    return canonical
 
-# 可选 sha256：与客户端一样，接受 profiles/整份文件的紧凑与 pretty 序列化，以及原始字节
+
+# 新格式：platforms.<平台>.profiles，各平台一套独立版本线
+platforms = doc.get("platforms", {})
+if not isinstance(platforms, dict):
+    sys.exit("错误：platforms 应是对象")
+canonical_platforms = {}
+total = 0
+for platform in sorted(platforms):
+    if platform not in PLATFORMS:
+        sys.exit(f"错误：platforms 含未知平台：{platform!r}")
+    entry = platforms[platform]
+    if not isinstance(entry, dict):
+        sys.exit(f"错误：platforms.{platform} 应是对象")
+    entries = entry.get("profiles", [])
+    if not isinstance(entries, list):
+        sys.exit(f"错误：platforms.{platform}.profiles 应是数组")
+    canonical_entries = [
+        check_profile(item, f"platforms.{platform}.profiles[{idx}]")
+        for idx, item in enumerate(entries, 1)
+    ]
+    canonical_platforms[platform] = {"profiles": canonical_entries}
+    total += len(canonical_entries)
+    print(f"  {platform}：{len(canonical_entries)} 个 profile")
+
+# 旧格式兼容：顶层扁平 profiles（历史文件按 macOS 语义读取）
+profiles = doc.get("profiles", [])
+if not isinstance(profiles, list):
+    sys.exit("错误：profiles 应是数组")
+canonical_profiles = [
+    check_profile(item, f"profiles[{idx}]")
+    for idx, item in enumerate(profiles, 1)
+]
+if profiles:
+    print(f"  旧式 profiles：{len(profiles)} 个")
+total += len(canonical_profiles)
+if total == 0:
+    sys.exit("错误：platforms 与 profiles 里至少要有一个 profile")
+
+# 可选 sha256：与客户端一样，接受 platforms / profiles / 整份文件与原始字节
 want = doc.get("sha256")
 if want is not None:
     if not isinstance(want, str):
@@ -137,10 +182,15 @@ if want is not None:
             data = json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode()
         return hashlib.sha256(data).hexdigest()
 
-    whole = {"schemaVersion": 1, "profiles": canonical}
+    whole = {"schemaVersion": 1}
+    if canonical_platforms:
+        whole["platforms"] = canonical_platforms
+    whole["profiles"] = canonical_profiles
     accepted = {
-        digest(canonical),
-        digest(canonical, pretty=True),
+        digest(canonical_platforms),
+        digest(canonical_platforms, pretty=True),
+        digest(canonical_profiles),
+        digest(canonical_profiles, pretty=True),
         digest(whole),
         digest(whole, pretty=True),
         hashlib.sha256(raw).hexdigest(),
@@ -149,7 +199,7 @@ if want is not None:
         sys.exit("错误：sha256 与内容不一致")
     print(f"  sha256 {want[:16]}… ✓")
 
-print(f"共 {len(profiles)} 个 profile")
+print(f"共 {total} 个 profile")
 PY
 
 FILES=$(cd "$PLUGINS" && find . -type f | sed 's|^\./||' | sort)

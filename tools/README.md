@@ -115,11 +115,14 @@ tools/deploy-app-plugin-profile.sh
 | 直读（缓存 600s） | `https://www.cosk.ai/data/releases/coskey/plugins/app-plugin-profile.json` |
 
 整目录发布：`coskey/plugins/` 下的文件会一并上线，profile 最后落地。脚本按客户端同一套规则
-自检：`schemaVersion` 必须为 1；`profiles` 非空；`startVersion` 是点分数字版本号；插件名只含
-字母、数字与 `-_.`；`alwaysAvailable` 缺失时按 `codex-app-tools` / `latex` / `visualize`
-处理；`capabilityGated` 的值必须是非空能力名；`platformExclusions` 只认
-`macos` / `windows` / `linux`；写了可选 `sha256` 时，接受 profiles 或整份文件的紧凑 /
-pretty 序列化，以及原始字节三种口径。
+自检（兼容旧的扁平 `profiles`）：`schemaVersion` 必须为 1；`platforms` 只认
+`macos` / `windows` / `linux`，各平台用 `platforms.<平台>.profiles` 维护独立版本线；
+所有平台与旧式列表合计至少一条 profile；`startVersion`（以及旧式的 `windowsStartVersion`）
+是点分数字版本号；插件名只含字母、数字与 `-_.`；`alwaysAvailable` 缺失时按
+`codex-app-tools` / `latex` / `visualize` 处理；`capabilityGated` 的值必须是非空能力名；
+`platformExclusions` 只认 `macos` / `windows` / `linux`；`appMaterialized` 缺失时按
+macOS 基线 `messages` 处理；写了可选 `sha256` 时，接受 platforms、profiles 或整份文件的
+紧凑 / pretty 序列化，以及原始字节。
 
 ## 环境变量
 
