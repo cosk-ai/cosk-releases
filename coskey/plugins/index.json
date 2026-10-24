@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "marketplace": {
+    "name": "coskey",
+    "displayName": "Coskey 插件市场"
+  },
+  "plugins": []
+}
