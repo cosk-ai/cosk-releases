@@ -1,20 +1,16 @@
 {
-  "version": "0.9.0",
-  "notes": "Coskey 0.9.0 — 一键修复 ChatGPT.app 的 Browser、中文界面和电脑操控\n\n- 状态页新增「ChatGPT.app」检测：分别检查 Browser 插件、浏览器扩展连接、中文界面、\n  电脑操控，以及这些功能依赖的七项能力值；两小时内复用结果，也可随时「重新检测」。命令行可用\n  `coskey app check` 查看同样的问题，用 `coskey app repair --id <检查项>` 修复单项\n- Browser 开关置灰、选了中文仍显示英文，或找不到「电脑操控 → 任意应用」时，可以点\n  「一键修复」：先列出要改的内容并确认，再退出 ChatGPT.app、按需补齐插件配置并写入\n  离线能力，完成后重启 ChatGPT.app 即可生效\n- macOS 和 Windows 均已适配。离线能力写入适用于 API key / 无会话场景；不会修改\n  ChatGPT.app 安装包、账号文件或站点策略，也不会替你安装插件或开启系统权限\n- 修复提示更清楚：确认框会说明需要退出正在进行的会话，打开 ChatGPT.app 时会显示\n  「正在打开」，不会让人误以为按钮没反应",
-  "pub_date": "2026-10-22T23:25:31Z",
+  "version": "0.10.0",
+  "notes": "Coskey 0.10.0 — 新增插件市场，常用管理可以交给 Coskey Tools\n\n- 新增「插件」页：查看插件市场、版本、来源、技能和 MCP 能力，以及是否已安装、\n  已启用；可以刷新市场、诊断、回滚，也能直接打开帮助文档。macOS 和 Windows\n  都可用\n- 插件市场先带 Coskey Tools：安装并在 ChatGPT.app 启用后，可以直接查询 coskey\n  状态、切换模型、查看、接管、转交会话，或排查连接问题。安装和启用仍在\n  ChatGPT.app 的插件页完成，Coskey 不会替你操作\n- 插件来源更灵活：可以从 Coskey 远端目录下载更新，也可以导入本地插件 ZIP。\n  打开插件页会自动检查版本，断网时继续使用上次缓存；下载失败会保留旧版本。\n  导入只会加入本地市场，之后仍需到 ChatGPT.app 安装\n- 下载和运行都有保护：插件包会校验大小与 SHA-256，并拒绝危险路径和符号链接；\n  本地 MCP 只调用固定的 coskey 工具，不提供任意 shell、文件或网络访问。\n  切换模型、接管、转交和修复前都会先说明影响并等待确认\n- 匿名装机标识改为单独保存在「~/.coskey/.install_id」：普通卸载和 --purge\n  都会保留，重装后继续使用；想重置时手动删除这个文件即可",
+  "pub_date": "2026-10-27T16:12:20Z",
   "min_supported_version": "0.8.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.9.0/Coskey_0.9.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUFvU21KMFpzRnRpekduM21rM1lleGx0OENJT2xobXF1QXFwdmpROXR3d2xQV1ZTVmpFN0RBR3I3WmdEREN1YzM4OUg1MFBxRXQrOEttRDhDNElDWUFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkyNzExMzgzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKSDBxZWFKR0hXc2I2cHU3TEdiZXFGU3hZQ1VBb1dIYlVRUGlXWHRUdHh1ODVvR2Y0UGVmbzdWOUFjQVJXYk9WVkZkRnFEdTg2RS91SkZoc0FhcS9sQ0E9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.0/Coskey_0.10.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU8vSVBEVmxnc1lOb3NTaFgreXNjVUMrTE5NUjVOM1VhK1ZxZzJ1RjFiTkNoQ2FLUjdVcnR6NzFSQkpteVkzQnNJYmNQbFNTcUFPcVZ3UFQ2aEdLckE0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTE3NTM5CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKcEgwNytTU3BNUzdTVkorbDhKcEUrKzViUk0yN0ErR2RTWEpGNGpRR1gwYmJxUmFvUlE4QnQ2OHI1L0ViRE5aRC9lRnpvSHdsNjhmZkM2NHNhdTZ2Q0E9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.9.0/Coskey_0.9.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtKaUhTYVZnNGtnQ25jZFdFcTQ5NnJVZy9iL251RWZwQWtocXkrWXRkaWE3V095VU45bjJEQmk3WTNMYkNGbFJwK3dtRXJMVkJPSnpsbTFrQ3A0VWdzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkyNzExNTMwCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKWjRieUFpbEV2OExwMWJDTTc0TFJickk0aUk2b25DRCtQSU9sdWRRNHJBdm9MMHdaZWxTWi9TVWZScm9oSlhrZWg1M2FrRWZaR2RmMlJOUTVWQXp0Qmc9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.9.0/Coskey_0.9.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUkxdzN1ZFppME1LSjVpenRoZ0xxRzM5T1F5TURhL2RQc1ZPd1FXa092c0NQV01ZQThFbXJUMUUxOWhiUUlmN0kwcnRqVHV0bGhQNytZU0pSSHFxYUEwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkyNjgyNjcxCWZpbGU6Q29za2V5XzAuOS4wX3g2NC1zZXR1cC5leGUKallqcTQrOHhRc1A5U1NUcHAxZGczWXdYYXJCSnBOT3FYMDBzZzgxWGlxVC83VlhoRlFDd2wxa3NUbDRSZ3NWdm1aUkJHTGZPZHhndktvNU1vcWVtQ2c9PQo="
+      "url": "https://github.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.0/Coskey_0.10.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUpBRmpHUytxVWhsME0zSndEL1IyQ3hNRlpUUEdIeC9BdWY2cWNYbElrS1I1UHB3aG1yMWpMd3RmZU1oK0Y0ekZGSnYvVXN0WXBDTHh4S3kzMmJGNUFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTE3NDA4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKK2EwWnVyTjFzYXphWmtWTVMyeTJsOHNMU242K0loMWVvQ3dYdWgwWk5OOTFiM2NsdytxQU1NSkxMTVVzZXEyUWVVeGNtN25JbW9OZ3ptcUZJQTAxQ0E9PQo="
     }
   }
 }
