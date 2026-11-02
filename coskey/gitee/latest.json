@@ -1,20 +1,16 @@
 {
-  "version": "0.10.0",
-  "notes": "Coskey 0.10.0 — 新增插件市场，常用管理可以交给 Coskey Tools\n\n- 新增「插件」页：查看插件市场、版本、来源、技能和 MCP 能力，以及是否已安装、\n  已启用；可以刷新市场、诊断、回滚，也能直接打开帮助文档。macOS 和 Windows\n  都可用\n- 插件市场先带 Coskey Tools：安装并在 ChatGPT.app 启用后，可以直接查询 coskey\n  状态、切换模型、查看、接管、转交会话，或排查连接问题。安装和启用仍在\n  ChatGPT.app 的插件页完成，Coskey 不会替你操作\n- 插件来源更灵活：可以从 Coskey 远端目录下载更新，也可以导入本地插件 ZIP。\n  打开插件页会自动检查版本，断网时继续使用上次缓存；下载失败会保留旧版本。\n  导入只会加入本地市场，之后仍需到 ChatGPT.app 安装\n- 下载和运行都有保护：插件包会校验大小与 SHA-256，并拒绝危险路径和符号链接；\n  本地 MCP 只调用固定的 coskey 工具，不提供任意 shell、文件或网络访问。\n  切换模型、接管、转交和修复前都会先说明影响并等待确认\n- 匿名装机标识改为单独保存在「~/.coskey/.install_id」：普通卸载和 --purge\n  都会保留，重装后继续使用；想重置时手动删除这个文件即可",
-  "pub_date": "2026-10-27T16:12:20Z",
-  "min_supported_version": "0.8.0",
+  "version": "0.10.1",
+  "notes": "Coskey 0.10.1 — 修复升级 ChatGPT.app 后可能打不开的问题\n\n- 修复 Windows 升级 ChatGPT.app 后可能出现「组织设置无法加载 / 请联系 IT 管理员」：\n  以前 coskey 可能继续使用上一代暂存内核。现在会优先选择与新 app 匹配的内核；旧内核\n  无法完成新版启动检查时，也会自动改试 ChatGPT.app 自带的内核\n- 如果体检里出现「内核暂存目录」提示，只是发现了升级前的旧内核，coskey 已自动避开，\n  不影响使用。不需要恢复官方内核，重启 ChatGPT.app 也不会清掉这份旧文件\n- macOS 已适配新版启动流程，并用 ChatGPT.app 26.1027 验证通过；即使配置了旧内核路径，\n  启动检查失败时也会自动改用 app 自带内核\n\n建议所有 0.10.0 用户升级。",
+  "pub_date": "2026-11-02T13:19:39Z",
+  "min_supported_version": "0.10.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.0/Coskey_0.10.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU8vSVBEVmxnc1lOb3NTaFgreXNjVUMrTE5NUjVOM1VhK1ZxZzJ1RjFiTkNoQ2FLUjdVcnR6NzFSQkpteVkzQnNJYmNQbFNTcUFPcVZ3UFQ2aEdLckE0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTE3NTM5CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKcEgwNytTU3BNUzdTVkorbDhKcEUrKzViUk0yN0ErR2RTWEpGNGpRR1gwYmJxUmFvUlE4QnQ2OHI1L0ViRE5aRC9lRnpvSHdsNjhmZkM2NHNhdTZ2Q0E9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.1/Coskey_0.10.1_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtrZXg2akRHbDF4NVdxeGlkNzd0OWM0ZXVnVUhiUkV4ZGw0STJkTE9ORG5FTlNVWnZUQVk1NXF1SytOTWh4VzNEQzYrMTQxQVduMmZ1NUYrUTVIK1FjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjI1NDU3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZ3hSdjhEb0xxSEpPcTBBQ0QrZU1pa2l4bnk1RnNDOERZcE5ocnlXVndMQkZFRXNjMHRFeXdVcVc2bUthS3gyT0IwOVV2NWdzaWxYMFBNSVUyUGNqQkE9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.0/Coskey_0.10.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUpBRmpHUytxVWhsME0zSndEL1IyQ3hNRlpUUEdIeC9BdWY2cWNYbElrS1I1UHB3aG1yMWpMd3RmZU1oK0Y0ekZGSnYvVXN0WXBDTHh4S3kzMmJGNUFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTE3NDA4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKK2EwWnVyTjFzYXphWmtWTVMyeTJsOHNMU242K0loMWVvQ3dYdWgwWk5OOTFiM2NsdytxQU1NSkxMTVVzZXEyUWVVeGNtN25JbW9OZ3ptcUZJQTAxQ0E9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.0/Coskey_0.10.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU1Pb0c3UlZBSDZuQU44ZC9rSDNWcmY5QUVaTHY0aWVhNWlXY3Jsc3J2aEsrb05tNlFZTG9uaGg2dUNxNnpKbXhhVTFieG54VmQ5Y3VsY25ZTXpzMVFZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTE2Mzg5CWZpbGU6Q29za2V5XzAuMTAuMF94NjQtc2V0dXAuZXhlClZVcmVGTFV1ZmxYQjBCbGVTQTBMSWtnNmlyZlovcUUxWlUvS2krT1RHa3A3K2dycGJxS08rclhCaE1mZitoUGFUdnozTUFkZlFlWTBIL1FWKzhMSkRRPT0K"
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.1/Coskey_0.10.1_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUpOemlZM2NGNTZaUmhzckhRc1JDNzNucjJjQ2U0dGN3SXJ0YTZ1aFQ0WVFIRXJsakU2WkY1OGhkQ3UyWUVEa1p3S1FyVVBBM2tJcWVWTlZXU2JRd3dNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjI1NTc5CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKM3BZS0EvVEQ2dDA2U3pPNDhjSEdJbzd5bHdtM2pyRDQ4eUt4WC9Eb0N6WGZUcmM3cnBzZmdySUZ0RllVVmtsbDlGQllzeUpRaGdnYm15RG9lSEx0RHc9PQo="
     }
   }
 }
