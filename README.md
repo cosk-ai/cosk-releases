@@ -6,7 +6,8 @@ cosk 家族产品的发布产物与更新清单。
 
 - **发布产物**：各产品/平台的安装包与签名文件，经 GitHub Releases 与
   Gitee 发行版发布；
-- **更新清单**：客户端应用自动更新读取的 `latest.json`。
+- **更新清单**：客户端应用自动更新读取的 `latest.json`；
+- **能力默认值**：ChatGPT.app 匿名能力取数的版本化默认值与签名索引。
 
 ## 目录约定
 
@@ -21,6 +22,7 @@ cosk-releases/
     ├── models/              # 元模板：<版本>/<id>.json + index.json（生成物，含历史版本）
     ├── provider/            # 常用供应商预设：provider-presets.json（+ 可选 provider-icon/）
     ├── plugins/             # 应用插件 profile：按平台分段的 app-plugin-profile.json
+    ├── app-capability/      # ChatGPT.app 能力默认值与签名索引（最近 20 个应用版本）
     └── notes/               # 更新说明
 ```
 

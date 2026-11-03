@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "appVersion": "26.1027.51404",
+  "sdkVersion": "3.35.1",
+  "contractVersion": 1,
+  "hash": "djb2",
+  "source": "anonymous-initialize-defaults",
+  "capturedAt": "2026-11-03T15:03:37Z",
+  "expiresAt": "2026-12-03T15:03:37Z",
+  "forwardCompatible": true,
+  "sdkFlags": {
+    "enable_log_event_compression": true,
+    "enabled_log_event_compression": true
+  },
+  "sdkConfigs": {
+    "live_values_auto_refresh_interval_seconds": 600
+  },
+  "featureGates": {
+    "770071981": {
+      "name": "770071981",
+      "rule_id": "default",
+      "secondary_exposures": [
+        {
+          "gate": "1106209706",
+          "gateValue": "false",
+          "ruleID": "default"
+        }
+      ],
+      "version": 4,
+      "id_type": "userID",
+      "value": false
+    },
+    "410262010": {
+      "name": "410262010",
+      "rule_id": "1AtYnZN0tdEMTdHpPbrvWq",
+      "secondary_exposures": [],
+      "version": 28,
+      "id_type": "userID",
+      "value": true
+    },
+    "419294242": {
+      "name": "419294242",
+      "rule_id": "61m4b9qgEUkRm9tt1vFOVs:100.00:1",
+      "secondary_exposures": [],
+      "version": 32,
+      "id_type": "userID",
+      "value": true
+    },
+    "410065390": {
+      "name": "410065390",
+      "rule_id": "1oLUJG9nvKCwOGpg1MpEyF:100.00:5",
+      "secondary_exposures": [],
+      "version": 34,
+      "id_type": "userID",
+      "value": true
+    },
+    "1506311413": {
+      "name": "1506311413",
+      "rule_id": "3UriQxgjOJV0GmtdUb7qnA:100.00:2",
+      "secondary_exposures": [],
+      "version": 48,
+      "id_type": "userID",
+      "value": true
+    },
+    "1892382740": {
+      "name": "1892382740",
+      "rule_id": "lGpy0UvT3k1XxgiYA3HHn:100.00:3",
+      "secondary_exposures": [
+        {
+          "gate": "640544080",
+          "gateValue": "false",
+          "ruleID": "default"
+        }
+      ],
+      "version": 61,
+      "id_type": "userID",
+      "value": true
+    }
+  },
+  "layers": {
+    "72216192": {
+      "name": "72216192",
+      "rule_id": "default",
+      "secondary_exposures": [],
+      "version": 11,
+      "value": {
+        "locale_source": "IDE",
+        "enable_i18n": true
+      },
+      "id_type": "userID",
+      "is_device_based": false,
+      "explicit_parameters": [],
+      "undelegated_secondary_exposures": []
+    }
+  }
+}

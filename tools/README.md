@@ -51,6 +51,7 @@ tools/deploy-models.sh
 | `deploy-models.sh` | 自检（索引与 sha256 对应、`history` 版本低于当前、目录里每个模板都被覆盖）→ 传站点 → 原子就位 → 回读核对 |
 | `deploy-provider-presets.sh` | 自检（列表字段、id 合法且不重复）→ 传站点 → 原子就位 → 回读核对 |
 | `deploy-app-plugin-profile.sh` | 自检（`schemaVersion`、`startVersion`、插件名、平台、可选 `sha256`）→ 传站点 → 原子就位 → 回读核对 |
+| `publish-app-capability.sh` | 校验能力默认值 → 生成最近 20 个应用版本的 `index.json` → 可选签名、提交、GitHub/Gitee 双推与 cosk.ai 部署 |
 
 **版本规则**（`index.json` 是版本事实源，客户端只在版本更高时提示更新）：
 
@@ -123,6 +124,51 @@ tools/deploy-app-plugin-profile.sh
 `platformExclusions` 只认 `macos` / `windows` / `linux`；`appMaterialized` 缺失时按
 macOS 基线 `messages` 处理；写了可选 `sha256` 时，接受 platforms、profiles 或整份文件的
 紧凑 / pretty 序列化，以及原始字节。
+
+## ChatGPT.app 能力默认值（`coskey/app-capability/statsig/`）
+
+对应 coskey 设计 `0023`。客户端读取一个按应用版本分层的索引，并从三个入口回退：
+
+| 入口 | URL 前缀 |
+|---|---|
+| GitHub | `https://raw.githubusercontent.com/cosk-ai/cosk-releases/main/coskey/app-capability/statsig/` |
+| Gitee | `https://gitee.com/cosk-ai/cosk-releases/raw/main/coskey/app-capability/statsig/` |
+| cosk.ai | `https://www.cosk.ai/data/app/coskey/app-capability/statsig/` |
+
+目录：
+
+```text
+coskey/app-capability/statsig/
+├── index.json
+├── index.json.sig
+└── <appVersion>/<sdkVersion>/defaults.json
+```
+
+`defaults.json` 是输入，`index.json` 由脚本生成。脚本保留最近 20 个
+`appVersion`；同一应用版本下的多个 `sdkVersion` 全部保留。
+
+```bash
+# 只校验并打印结果，不写文件
+tools/publish-app-capability.sh --dry-run
+
+# 校验并生成/更新本地 index.json；不签名、不提交、不推送、不部署
+tools/publish-app-capability.sh
+
+# 生成并签名，不提交、不推送、不部署
+tools/publish-app-capability.sh --sign
+
+# 完整发布：签名 → 提交 → Gitee/GitHub 双推 → cosk.ai 部署 → 回读核对
+tools/publish-app-capability.sh --publish
+```
+
+默认签名私钥为 `~/.config/coskey-release/coskey.key`，也可用
+`--signing-key` / `TAURI_SIGNING_PRIVATE_KEY_PATH` 指定。脚本使用 coskey 的 Tauri
+签名器，并调用 `scripts/lib/verify-minisign.mjs` 校验 `index.json.sig`；签名前还会核对
+`.key.pub` 与 coskey `gui/tauri.conf.json` 的 updater 公钥一致。私钥不会写入仓库。
+
+已存在的 `<appVersion>/<sdkVersion>` 内容若被原地修改，脚本默认拒绝；只能改用新版本
+目录。`--force` 只用于明确知道后果的紧急修订。默认模式、`--dry-run` 和 `--sign`
+用于预发布检查；只有 `--publish` 会提交、推送和部署。
 
 ## 环境变量
 
