@@ -1,20 +1,16 @@
 {
-  "version": "0.10.1",
-  "notes": "Coskey 0.10.1 — 修复升级 ChatGPT.app 后可能打不开的问题\n\n- 修复 Windows 升级 ChatGPT.app 后可能出现「组织设置无法加载 / 请联系 IT 管理员」：\n  以前 coskey 可能继续使用上一代暂存内核。现在会优先选择与新 app 匹配的内核；旧内核\n  无法完成新版启动检查时，也会自动改试 ChatGPT.app 自带的内核\n- 如果体检里出现「内核暂存目录」提示，只是发现了升级前的旧内核，coskey 已自动避开，\n  不影响使用。不需要恢复官方内核，重启 ChatGPT.app 也不会清掉这份旧文件\n- macOS 已适配新版启动流程，并用 ChatGPT.app 26.1027 验证通过；即使配置了旧内核路径，\n  启动检查失败时也会自动改用 app 自带内核\n\n建议所有 0.10.0 用户升级。",
-  "pub_date": "2026-11-02T13:19:39Z",
+  "version": "0.11.0",
+  "notes": "Coskey 0.11.0 — 把 coskey 的模型分享给其它 Agent，并在终端里直接用\n\n- 新增「模型网关」页：把 coskey 里已经配好的模型开放成一个固定地址，本机或同一局域网的\n  Codex、IDE、脚本都能直接用，不必再重复填写供应商密钥。每个客户端有独立 token，\n  可随时轮换或撤销\n- 每个客户端可以单独挑模型：第三方模型和官方模型放在同一份清单里，选谁就只给谁用。\n  官方模型走你本机的 ChatGPT 登录态，客户端拿不到你的账号凭据\n- 新增「远端通道」页：给远程服务器上的 Codex 配置模型，两种方式任选——经本机网关中转，\n  或把某个供应商直连写进远端。两种方式都先给出计划，确认后才动远端配置。通道可手动启停，\n  也能设成随 ChatGPT 启动或停止\n- macOS 和 Windows 都可以建立远端通道；Windows 使用系统 OpenSSH 在后台运行隧道，\n  不会弹出控制台窗口。远端目标支持 Linux 和 macOS\n- 远端对话能直接选 coskey 模型：在 ChatGPT 里连上那台服务器并打开远端目录后，\n  对话框的模型选择器就会列出你授权的模型。远端不需要装 coskey\n- 新增 `coskey codex`：用官方 Codex CLI 直接跑 coskey 的模型，支持交互、`exec` 和\n  `resume`。会话里用 `/model` 就能切换，跨供应商也不用重开；选完模型按 Enter 会写入\n  Codex 默认配置，按 `s` 只影响当前会话\n- 安装后自动提供 `coskey` 命令行入口，新开终端即可使用。关闭 Coskey 窗口只会缩到托盘，\n  网关和远端通道继续工作\n- 修复升级 ChatGPT.app 后可能提示「组织设置无法加载」：不再误用与当前 app 不匹配的内核，\n  启动检查失败时会自动改用 app 自带的内核。macOS 和 Windows 均已适配\n\n详细步骤与截图可在 Coskey 帮助文档中查看。",
+  "pub_date": "2026-11-03T00:04:39Z",
   "min_supported_version": "0.10.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.1/Coskey_0.10.1_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUtrZXg2akRHbDF4NVdxeGlkNzd0OWM0ZXVnVUhiUkV4ZGw0STJkTE9ORG5FTlNVWnZUQVk1NXF1SytOTWh4VzNEQzYrMTQxQVduMmZ1NUYrUTVIK1FjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjI1NDU3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZ3hSdjhEb0xxSEpPcTBBQ0QrZU1pa2l4bnk1RnNDOERZcE5ocnlXVndMQkZFRXNjMHRFeXdVcVc2bUthS3gyT0IwOVV2NWdzaWxYMFBNSVUyUGNqQkE9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.11.0/Coskey_0.11.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUxIL285UkJzcDlONFduOHRsTm93bENUbEF3U1dWVGpkK2RtYkhpR0lEamxmY3N4aUQ4MFZZbWY0aWtISy9IRVRvakkyRkJwVml6UXZUNURMWFJFMVFnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjY0MTM4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZFNhTER6NmZSTG5zMWFoQlcxUS9uNE85QVpsQWJodnhjRERMQk1lMHM4Mnd1dFVVcjhYaGtmNDM2RTNMMGR2aldDeTN0MlhVT0cwcFhOY2dLSlJFQXc9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.1/Coskey_0.10.1_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUpOemlZM2NGNTZaUmhzckhRc1JDNzNucjJjQ2U0dGN3SXJ0YTZ1aFQ0WVFIRXJsakU2WkY1OGhkQ3UyWUVEa1p3S1FyVVBBM2tJcWVWTlZXU2JRd3dNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjI1NTc5CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKM3BZS0EvVEQ2dDA2U3pPNDhjSEdJbzd5bHdtM2pyRDQ4eUt4WC9Eb0N6WGZUcmM3cnBzZmdySUZ0RllVVmtsbDlGQllzeUpRaGdnYm15RG9lSEx0RHc9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.10.1/Coskey_0.10.1_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU5pRHNEWTJtcXVnQnhhNGUyTkQrVHEvOEtvdkhPSk9vVlVPZ28rcVU2ZXRvWGZId0lQQ0xNOUQ0KzNFZ3NTSTd4NFNFejBmVXlMRXlSK0ZoYUxnclE0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNTc5MzMwCWZpbGU6Q29za2V5XzAuMTAuMV94NjQtc2V0dXAuZXhlCmZsVmpqbW4vV2tSbzRsd2NyUjFOYUw0bmxkcUVUb1M0WWg2ZXdXbXFzdThNTjQwTHJYbW52UWxuUEVDdVlLYXJYc2cya3U5VXdqWGhOaldjZ1ZLN0JnPT0K"
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.11.0/Coskey_0.11.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUFhVTJMeVVvdWhuaXp4QXp1cytQajdkN2w4UGhMUnBLaXpyYlFUcFhDRndoVDQ2WUFNS0VyenFjMEhGblVRbm1Zb29saWxLVCtwaFR5SG91aE1DQ2drPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjY0Mjc4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKclkzdVJtSFVEMXZ4MmdWVjk3bjhNU2FQTmxLeG1WaHA5Wm5PZXVMT1phSFBUUmhGNjhvbXBwcE4rTnFzZFVSMHM5WXVWYnN6cGs5WFlUMHc4WUdaQVE9PQo="
     }
   }
 }
