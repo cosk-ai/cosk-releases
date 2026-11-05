@@ -1,20 +1,16 @@
 {
-  "version": "0.11.0",
-  "notes": "Coskey 0.11.0 — 把 coskey 的模型分享给其它 Agent，并在终端里直接用\n\n- 新增「模型网关」页：把 coskey 里已经配好的模型开放成一个固定地址，本机或同一局域网的\n  Codex、IDE、脚本都能直接用，不必再重复填写供应商密钥。每个客户端有独立 token，\n  可随时轮换或撤销\n- 每个客户端可以单独挑模型：第三方模型和官方模型放在同一份清单里，选谁就只给谁用。\n  官方模型走你本机的 ChatGPT 登录态，客户端拿不到你的账号凭据\n- 新增「远端通道」页：给远程服务器上的 Codex 配置模型，两种方式任选——经本机网关中转，\n  或把某个供应商直连写进远端。两种方式都先给出计划，确认后才动远端配置。通道可手动启停，\n  也能设成随 ChatGPT 启动或停止\n- macOS 和 Windows 都可以建立远端通道；Windows 使用系统 OpenSSH 在后台运行隧道，\n  不会弹出控制台窗口。远端目标支持 Linux 和 macOS\n- 远端对话能直接选 coskey 模型：在 ChatGPT 里连上那台服务器并打开远端目录后，\n  对话框的模型选择器就会列出你授权的模型。远端不需要装 coskey\n- 新增 `coskey codex`：用官方 Codex CLI 直接跑 coskey 的模型，支持交互、`exec` 和\n  `resume`。会话里用 `/model` 就能切换，跨供应商也不用重开；选完模型按 Enter 会写入\n  Codex 默认配置，按 `s` 只影响当前会话\n- 安装后自动提供 `coskey` 命令行入口，新开终端即可使用。关闭 Coskey 窗口只会缩到托盘，\n  网关和远端通道继续工作\n- 修复升级 ChatGPT.app 后可能提示「组织设置无法加载」：不再误用与当前 app 不匹配的内核，\n  启动检查失败时会自动改用 app 自带的内核。macOS 和 Windows 均已适配\n\n详细步骤与截图可在 Coskey 帮助文档中查看。",
-  "pub_date": "2026-11-03T00:04:39Z",
-  "min_supported_version": "0.10.0",
+  "version": "0.12.0",
+  "notes": "Coskey 0.12.0 — 适配新版 ChatGPT，会话和网关更省心\n\n- 修复升级到新版 ChatGPT.app 后，已有 coskey 会话发送消息可能被拒绝的问题。\n  新建会话、连续对话和重启后重新打开都已适配\n- 官方模型现在固定经 coskey 中转，不再需要选择“统一 / 分开”策略。官方和第三方模型\n  可以在同一会话里自由切换，旧配置会自动兼容，不需要手动清理\n- 设置页可以修改 ChatGPT.app 左下角 API key 登录项里显示的中转名称，留空恢复默认名称。\n  这里只改显示文字，不影响内部配置；重启 ChatGPT.app 后生效\n- 修复旧会话被 ChatGPT.app 自动压缩后，被误判为“会话文件缺失”的问题。这些会话仍可\n  正常打开，并会显示“已压缩”标记\n- Coskey Tools 更新到 0.3.3：在 ChatGPT.app 里可以查询模型网关状态、已授权的接入程序和\n  可用模型；远端 Codex 接入支持选择多个模型，也可以复用已有接入程序。已安装旧版的用户\n  可按插件页提示更新\n- 「转交」仍是卸载前的正式迁移入口：先退出 ChatGPT.app，再把历史会话交给原生或其它\n  已配置的模型来源\n\n建议所有 0.11.0 用户升级。",
+  "pub_date": "2026-11-05T00:29:16Z",
+  "min_supported_version": "0.12.0",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.11.0/Coskey_0.11.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUxIL285UkJzcDlONFduOHRsTm93bENUbEF3U1dWVGpkK2RtYkhpR0lEamxmY3N4aUQ4MFZZbWY0aWtISy9IRVRvakkyRkJwVml6UXZUNURMWFJFMVFnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjY0MTM4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZFNhTER6NmZSTG5zMWFoQlcxUS9uNE85QVpsQWJodnhjRERMQk1lMHM4Mnd1dFVVcjhYaGtmNDM2RTNMMGR2aldDeTN0MlhVT0cwcFhOY2dLSlJFQXc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.12.0/Coskey_0.12.0_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RURWRWpmU3NvOEpZdGZTVHdlbFNSNjRUVHhOZnBHcnZlRndRRWoxeXZhckVHTUs5dTRWdHNQMFJnekpYZTloQ0dzRERvOEN0RzJ5TVVtRmdXVmEyMFFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzODM4NDA4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKYjUvSFlPWVhxekVwQ3VqdjR4eDRWZHdhQm5ocXE5Ky9kOHoxaVVIZUFJMSt3WXRWeFJTSjZiamdnazlIRVZtUlNkTDlQWUVISUlCOVZPYzZCTDdQQUE9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.11.0/Coskey_0.11.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUFhVTJMeVVvdWhuaXp4QXp1cytQajdkN2w4UGhMUnBLaXpyYlFUcFhDRndoVDQ2WUFNS0VyenFjMEhGblVRbm1Zb29saWxLVCtwaFR5SG91aE1DQ2drPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjY0Mjc4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKclkzdVJtSFVEMXZ4MmdWVjk3bjhNU2FQTmxLeG1WaHA5Wm5PZXVMT1phSFBUUmhGNjhvbXBwcE4rTnFzZFVSMHM5WXVWYnN6cGs5WFlUMHc4WUdaQVE9PQo="
-    },
-    "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.11.0/Coskey_0.11.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUFibkREQVd1ZStqai9mZDJJQkhwSGp0NmJzdGs5eVlVNC9ZbVEyQ2NSWGVVdjMrVVBjMzRmY0tlOHZrRzZCc3FlaE91MThXaDhJNUl2VjEzbXhCdXdBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzNjM0Mjc3CWZpbGU6Q29za2V5XzAuMTEuMF94NjQtc2V0dXAuZXhlCjR5elhqTTd0ektTL1VCUUhyTHYzM0hoc3J4VU45T1dER0RIZ1ppQVpQdGlMV3dtNm1ITVRRajdDOWV5WndYRjVpYWZSWVF2SnZrMWlka2NyaHB2TkF3PT0K"
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.12.0/Coskey_0.12.0_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RVB1VnBjYTdGOEpITithYWh1Y3BnaElZeTJLdE1qcUpjdGVuOVlMZCs4MU9uVUtxaVRKbkt4dTZXWmt2NEo2SlFMb0RBYlBkQWFVdEtBV2l2dFJYSWdrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzODM4NTU1CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKNHNWb3RiZzViaDJ1M2JWY0VUSVRVTnBYVTJEYTZJTjN1S2ttKzhBa3NqRzczZGRjYTIvMklJMnhrclpUZnBudEhpQzc3c1V3blUwaFJqUms5WmRBQ2c9PQo="
     }
   }
 }
