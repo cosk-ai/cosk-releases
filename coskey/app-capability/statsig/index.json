@@ -1,14 +1,15 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "entries": [
     {
-      "appVersion": "26.1027.51404",
+      "appVersion": "26.1029.70936",
+      "appBuild": "24905",
       "sdkVersion": "3.35.1",
       "contractVersion": 1,
-      "path": "26.1027.51404/3.35.1/defaults.json",
-      "sha256": "4499f89d5f02f59ed6a98b2f91c8c1461a79d8d87e2e991773be5e80d06bfda5",
-      "capturedAt": "2026-11-03T15:03:37Z",
-      "expiresAt": "2026-12-03T15:03:37Z",
+      "path": "26.1029.70936/24905/3.35.1/defaults.json",
+      "sha256": "863748e6c8161852abc2dfb323b46f604c0fa199bac7188a090ca2df63c40808",
+      "capturedAt": "2026-11-05T14:28:01Z",
+      "expiresAt": "2026-12-05T14:28:01Z",
       "forwardCompatible": true
     }
   ]
