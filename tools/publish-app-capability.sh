@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ChatGPT.app 能力默认值发布：扫描
-#   coskey/app-capability/statsig/<appVersion>/<sdkVersion>/defaults.json
+#   coskey/app-capability/statsig/<appVersion>/<appBuild>/<sdkVersion>/defaults.json
 # 生成单一 index.json，校验内容与不可变性，并可签名、提交、双推、部署 cosk.ai。
 #
 # 默认只生成本地 index.json 与做校验，不签名、不提交、不推送、不部署。
@@ -21,7 +21,7 @@
 #   --publish    生成、签名、提交、双推、部署并回读核对
 #
 # 索引策略：
-#   - 只读取 <appVersion>/<sdkVersion>/defaults.json；
+#   - 只读取 <appVersion>/<appBuild>/<sdkVersion>/defaults.json；
 #   - 按 appVersion 数值倒序，保留最近 20 个应用版本；
 #   - 同一 appVersion 下的不同 sdkVersion 全部保留；
 #   - 已存在的 appVersion + sdkVersion 若内容 sha256 变化，默认拒绝，需 --force；
@@ -131,6 +131,13 @@ GATE_IDS = {
     "410065390",
     "1506311413",
     "1892382740",
+    "3085093835",
+    "1304276663",
+    "1532120159",
+    "1288674243",
+    "2124127696",
+    "2296472986",
+    "1042620455",
 }
 LAYER_ID = "72216192"
 MAX_BYTES = 512 * 1024
@@ -193,7 +200,7 @@ def check_identity_free(value, label):
 
 records = []
 seen = set()
-for path in sorted(root.glob("*/*/defaults.json")):
+for path in sorted(root.glob("*/*/*/defaults.json")):
     if not path.is_file():
         continue
     raw = path.read_bytes()
@@ -205,19 +212,26 @@ for path in sorted(root.glob("*/*/defaults.json")):
         raise SystemExit(f"错误：{path} 不是合法 UTF-8 JSON：{exc}")
     if not isinstance(doc, dict):
         raise SystemExit(f"错误：{path} 顶层必须是对象")
-    if doc.get("schemaVersion") != 1:
-        raise SystemExit(f"错误：{path}.schemaVersion 必须为 1")
+    if doc.get("schemaVersion") != 2:
+        raise SystemExit(f"错误：{path}.schemaVersion 必须为 2")
     app_version = doc.get("appVersion")
+    app_build = doc.get("appBuild")
     sdk_version = doc.get("sdkVersion")
     if not isinstance(app_version, str) or not APP_VERSION.fullmatch(app_version):
         raise SystemExit(f"错误：{path}.appVersion 不是点分数字版本")
     if not isinstance(sdk_version, str) or not SDK_VERSION.fullmatch(sdk_version):
         raise SystemExit(f"错误：{path}.sdkVersion 不是点分数字版本")
-    if path.parent.parent.name != app_version or path.parent.name != sdk_version:
-        raise SystemExit(f"错误：{path} 的目录层与 appVersion/sdkVersion 不一致")
-    key = (app_version, sdk_version)
+    if not isinstance(app_build, str) or not app_build.isdigit():
+        raise SystemExit(f"错误：{path}.appBuild 必须是数字 build")
+    if (
+        path.parent.parent.parent.name != app_version
+        or path.parent.parent.name != app_build
+        or path.parent.name != sdk_version
+    ):
+        raise SystemExit(f"错误：{path} 的目录层与 appVersion/appBuild/sdkVersion 不一致")
+    key = (app_version, app_build, sdk_version)
     if key in seen:
-        raise SystemExit(f"错误：重复版本 {app_version} / {sdk_version}")
+        raise SystemExit(f"错误：重复版本 {app_version} / {app_build} / {sdk_version}")
     seen.add(key)
     contract = doc.get("contractVersion")
     if isinstance(contract, bool) or not isinstance(contract, int) or contract < 1:
@@ -241,7 +255,7 @@ for path in sorted(root.glob("*/*/defaults.json")):
         raise SystemExit(f"错误：{path}.sdkConfigs.live_values_auto_refresh_interval_seconds 非法")
     gates = doc.get("featureGates")
     if not isinstance(gates, dict) or set(gates) != GATE_IDS:
-        raise SystemExit(f"错误：{path}.featureGates 必须恰好包含 6 个既定 gate")
+        raise SystemExit(f"错误：{path}.featureGates 必须恰好包含 13 个既定 gate")
     for gid in sorted(GATE_IDS):
         check_gate(gid, gates[gid], str(path))
     layers = doc.get("layers")
@@ -264,9 +278,10 @@ for path in sorted(root.glob("*/*/defaults.json")):
     check_identity_free(doc, str(path))
     records.append({
         "appVersion": app_version,
+        "appBuild": app_build,
         "sdkVersion": sdk_version,
         "contractVersion": contract,
-        "path": f"{app_version}/{sdk_version}/defaults.json",
+        "path": f"{app_version}/{app_build}/{sdk_version}/defaults.json",
         "sha256": hashlib.sha256(raw).hexdigest(),
         "capturedAt": doc["capturedAt"],
         "expiresAt": doc["expiresAt"],
@@ -282,16 +297,16 @@ if index_path.is_file():
         old_doc = json.loads(index_path.read_text(encoding="utf-8"))
     except Exception as exc:
         raise SystemExit(f"错误：现有 index.json 不可解析：{exc}")
-    if not isinstance(old_doc, dict) or old_doc.get("schemaVersion") != 1:
-        raise SystemExit("错误：现有 index.json schemaVersion 必须为 1")
+    if not isinstance(old_doc, dict) or old_doc.get("schemaVersion") not in (1, 2):
+        raise SystemExit("错误：现有 index.json schemaVersion 必须为 1 或 2")
     if not isinstance(old_doc.get("entries"), list):
         raise SystemExit("错误：现有 index.json.entries 必须是数组")
     for old in old_doc["entries"]:
         if not isinstance(old, dict):
             raise SystemExit("错误：现有 index.json.entries 含非对象")
-        oa, osv = old.get("appVersion"), old.get("sdkVersion")
-        if isinstance(oa, str) and isinstance(osv, str):
-            old_entries[(oa, osv)] = old
+        oa, ob, osv = old.get("appVersion"), old.get("appBuild"), old.get("sdkVersion")
+        if isinstance(oa, str) and isinstance(ob, str) and isinstance(osv, str):
+            old_entries[(oa, ob, osv)] = old
 
 by_app = {}
 for rec in records:
@@ -306,19 +321,19 @@ selected.sort(
 
 problems = []
 for rec in selected:
-    old = old_entries.get((rec["appVersion"], rec["sdkVersion"]))
+    old = old_entries.get((rec["appVersion"], rec["appBuild"], rec["sdkVersion"]))
     if old is not None and old.get("sha256") != rec["sha256"] and not force:
         problems.append(
             f"{rec['appVersion']} / {rec['sdkVersion']}：已发布内容被原地修改；"
             "请新建 appVersion/sdkVersion 目录，或明确使用 --force"
         )
 for key, old in old_entries.items():
-    if key not in {(r["appVersion"], r["sdkVersion"]) for r in selected} and key[0] in recent_set and not force:
-        problems.append(f"{key[0]} / {key[1]}：仍在最近 {keep_n} 个应用版本内，但源文件已消失")
+    if key not in {(r["appVersion"], r["appBuild"], r["sdkVersion"]) for r in selected} and key[0] in recent_set and not force:
+        problems.append(f"{key[0]} / {key[1]} / {key[2]}：仍在最近 {keep_n} 个应用版本内，但源文件已消失")
 if problems:
     raise SystemExit("错误：\n  " + "\n  ".join(problems))
 
-new_doc = {"schemaVersion": 1, "entries": selected}
+new_doc = {"schemaVersion": 2, "entries": selected}
 encoded = (json.dumps(new_doc, ensure_ascii=False, indent=2) + "\n").encode()
 old_bytes = index_path.read_bytes() if index_path.is_file() else b""
 changed = encoded != old_bytes
@@ -341,7 +356,7 @@ else:
           + ("（内容有变化）" if changed else "（内容未变）"))
 
 for rec in selected:
-    print(f"    {rec['appVersion']} / {rec['sdkVersion']}  {rec['sha256'][:16]}…")
+    print(f"    {rec['appVersion']} / {rec['appBuild']} / {rec['sdkVersion']}  {rec['sha256'][:16]}…")
 if len(by_app) > len(recent_apps):
     print(f"  保留策略：发现 {len(by_app)} 个应用版本，索引只保留最近 {len(recent_apps)} 个；"
           "旧文件不会自动删除")

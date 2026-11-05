@@ -141,11 +141,13 @@ macOS 基线 `messages` 处理；写了可选 `sha256` 时，接受 platforms、
 coskey/app-capability/statsig/
 ├── index.json
 ├── index.json.sig
-└── <appVersion>/<sdkVersion>/defaults.json
+└── <appVersion>/<appBuild>/<sdkVersion>/defaults.json
 ```
 
 `defaults.json` 是输入，`index.json` 由脚本生成。脚本保留最近 20 个
-`appVersion`；同一应用版本下的多个 `sdkVersion` 全部保留。
+`appVersion`；同一应用版本下的 `appBuild` / `sdkVersion` 组合全部保留。
+索引使用 `schemaVersion: 2`，默认值必须恰好包含 0026 规定的 13 个 gate 与
+i18n layer；客户端仍可只读识别既有 schema 1 缓存。
 
 ```bash
 # 只校验并打印结果，不写文件
@@ -166,7 +168,7 @@ tools/publish-app-capability.sh --publish
 签名器，并调用 `scripts/lib/verify-minisign.mjs` 校验 `index.json.sig`；签名前还会核对
 `.key.pub` 与 coskey `gui/tauri.conf.json` 的 updater 公钥一致。私钥不会写入仓库。
 
-已存在的 `<appVersion>/<sdkVersion>` 内容若被原地修改，脚本默认拒绝；只能改用新版本
+已存在的 `<appVersion>/<appBuild>/<sdkVersion>` 内容若被原地修改，脚本默认拒绝；只能改用新版本
 目录。`--force` 只用于明确知道后果的紧急修订。默认模式、`--dry-run` 和 `--sign`
 用于预发布检查；只有 `--publish` 会提交、推送和部署。
 
