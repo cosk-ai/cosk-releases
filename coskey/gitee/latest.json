@@ -1,20 +1,20 @@
 {
-  "version": "0.13.0",
-  "notes": "Coskey 0.13.0 — 按你的习惯启动 ChatGPT.app\n\n- 新增「个性化」页，可以调整 ChatGPT.app 的界面语言、左侧导航、应用快照、\n  电脑操控等能力。每项都会显示默认值、当前值和来源，也能随时恢复默认\n- 新增「ChatGPT 个性化启动器」：macOS 生成启动 App，Windows 生成桌面快捷方式。\n  双击即可按你的设置启动 ChatGPT.app；如果它正在运行，会先退出再重新打开。\n  从 Dock、Finder 或开始菜单直接启动不会带上个性化设置\n- 个性化只适用于 ChatGPT.app 的 API key 模式。设置只保存在本机，不会上传账号信息，\n  也不会修改系统代理或根证书；它不会获得额外的账号、套餐或地区权限。相关功能能否使用，\n  仍取决于插件、系统权限和 ChatGPT.app 自身的条件\n- 修改后通过 coskey 重新启动 ChatGPT.app 才会生效。切换默认来源时，\n  「采用为新基线」会保留已有修改；「重新生成」会清空全部单项修改，操作前会先预览并再次确认\n- 状态页的 ChatGPT.app 区域改为只读检查，配置入口集中到「个性化」页。旧的\n  `coskey app repair` 和 `app statsig seed` 写入口已停用，终端用户改用\n  `coskey app egress` 命令\n- API key 登录项里的中转名称未手动设置时，会跟随 Codex 当前 provider 的展示名；\n  读不到才显示 `coskey local relay`。同时修复 macOS 运行实例识别，并精简设置页和插件页入口\n\n建议所有 0.12.0 用户升级。",
-  "pub_date": "2026-11-07T04:49:10Z",
-  "min_supported_version": "0.12.0",
+  "version": "0.13.1",
+  "notes": "Coskey 0.13.1 — 修复新版 ChatGPT.app 下浏览器和电脑操控不可用\n\n- 适配 ChatGPT.app 26.1103 及以上版本的 macOS 安全校验：修复模型对话正常，\n  但浏览器、Chrome / Edge 控制或电脑操控相关工具无法连接的问题\n- 修复浏览器工具可能误用 coskey 包装器作为 Codex 内核的问题。现在会固定使用\n  ChatGPT.app 自带的 Codex，macOS 和 Windows 同步生效\n- 升级后请完全退出并重新启动 ChatGPT.app。只重启浏览器或重装扩展不会刷新已经启动的内核\n- 如果 ChatGPT.app 自带的 Codex 版本较旧，聊天仍会正常工作，但浏览器控制会暂时不可用。\n  请升级 ChatGPT.app；「体检」会明确提示原因\n\n建议所有 0.13.0 用户升级，尤其是使用新版 ChatGPT.app 的 macOS 用户。",
+  "pub_date": "2026-11-07T12:25:44Z",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.0/Coskey_0.13.0_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUdybm5vK0QwZUF6dDRmSnNoR3ZmbXVSVVNzVEFIYUQxeTRMUkkvaVJMdGZNbGsyMFlLS1hTVWJLTG14T1A0WHh6NG5uWVZqcndMTWxZYk9SRTBvR1F3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDI2ODA4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKcnNxQ1I4ZXdBdmd1OUtSQUxOUXRwUEtLOVNNQmxRZk9hWFZKQ0JQWnkxcitxaWVsRHNxZ05ObFBSNDJHb2hmOTFOSHEvTm1jemtWRExKRlRnamVCRHc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.1/Coskey_0.13.1_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUxPL3d2STArNi9Gd0ZsOXV3MlpsL1RaSllETm5LQXhQSTl0UFg2T0k3ZDRYVEE0NmdIc2szQW8xYjF3djEvN0EydzgvSE5LdG1JQ3lVYitpblVsaFFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDU0MTgxCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKbUhNeTc4QmhGbWhqYjJQM1R2c0VWSzBWMEUxcjRkUysvd0pTVEJYaGtFWElNcWFJcVZFTDJ2bWJpYmZ6ZlY5MU94d0M3OW5aUXhuVXlCTGVpZVo5RGc9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.0/Coskey_0.13.0_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUZEdVFRMEd3V3dOcDUzM0dtZ29RS2RMbWhETUxEdFBFaEtUZ0tXUnJrRDh5YW52R1p2TGd2UGt6SUpPeTB1ZStBOCs2c0YvMDArM3NPQ0pidjh2aVFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDI2OTQ5CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZlFvNFpPdzJrUldVRXFKSnVsQmVRMEswZG91YzZCSTZLU2JLNXBHZ2JVZDRXY3FrNnZXNWFyckhvU25uMkh5b203RTQ3VW1BWUdnWTd4a3h3U1k3QXc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.1/Coskey_0.13.1_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUhKT05teE91QitoNG92NGFaZnZzU3dnNVE1dWc3TEFpdS9mc1pYTVpXU0c4TFkrNGhrZ1FBcWhkQzdmcmVaUFMvRG5aSm1rYWJJMW9Fb1E4Z01TSmdZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDU0MzQzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKbFZ3c04zYmJBaUtZNHd3OHBBcTZvZ0xJYXBueVRrRFg0L0F5ZjlnVVdMZDI1VFNPZlRrZjNLeHRRMmd5TGpWbGtHRDJGZnl3azJHQXJxQUJ0bFlOQlE9PQo="
     },
     "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.0/Coskey_0.13.0_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUVDZnFMM1k4VDJIZ1hZdlpEa0N4blFYRnYrRm1FK2NnMjRtRUpsbkVoWllDeTJUdCtHTk1naFVjNktvb0l2Ukw5ekZhL1I1OGFiVUdJUUVCUGlVaHdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDIyNTc3CWZpbGU6Q29za2V5XzAuMTMuMF94NjQtc2V0dXAuZXhlCjhlWFMreERFM0M4SGR4SFFnS0NZK2QreGVDMXlzbW1JNlZJMzI2QStYU3dPMlZ2TEVjQ3ZYSm9mcWxZbTdZT2hwdENZd0VWSVQvZkdHNFV6MFFEYUJBPT0K"
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.1/Coskey_0.13.1_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RVB5WURLVUY1SDUzc2ZtNlVZVzJRSU5HbCsyVGk1dkJoUm5qTUpadjhLNVNWbFFvR3NGUVV3N01yaHE0bzJzb3hldm5SdUpCT2swby9wbm1QOS9SWmdjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDUxNDg1CWZpbGU6Q29za2V5XzAuMTMuMV94NjQtc2V0dXAuZXhlCmhheCt2eHBnZHZnOHJGQjFpQ2VlRXhlaG92Z0JPdFVRZkN2TThFZnFEYitPdkpXOXE3VlR5M1RJZEZZWHNXd2Z4ZWg4VTVIcEkreXFva0hXWkVhVURRPT0K"
     }
-  }
+  },
+  "min_supported_version": "0.12.0"
 }
