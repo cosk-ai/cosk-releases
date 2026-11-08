@@ -2,7 +2,6 @@
   "schemaVersion": 2,
   "entries": [
     {
-      "gate_count": 14,
       "appVersion": "26.1103.41825",
       "appBuild": "25679",
       "sdkVersion": "3.35.1",
@@ -14,7 +13,6 @@
       "forwardCompatible": true
     },
     {
-      "gate_count": 13,
       "appVersion": "26.1103.31037",
       "appBuild": "25241",
       "sdkVersion": "3.35.1",
@@ -26,7 +24,6 @@
       "forwardCompatible": true
     },
     {
-      "gate_count": 13,
       "appVersion": "26.1029.70936",
       "appBuild": "24905",
       "sdkVersion": "3.35.1",
