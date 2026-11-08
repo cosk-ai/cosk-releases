@@ -146,8 +146,9 @@ coskey/app-capability/statsig/
 
 `defaults.json` 是输入，`index.json` 由脚本生成。脚本保留最近 20 个
 `appVersion`；同一应用版本下的 `appBuild` / `sdkVersion` 组合全部保留。
-索引使用 `schemaVersion: 2`，默认值必须恰好包含 0026 规定的 13 个 gate 与
-i18n layer；客户端仍可只读识别既有 schema 1 缓存。
+索引使用 `schemaVersion: 2`。新 defaults 必须包含 0026 规定的 14 个 gate 与 i18n
+layer；历史条目允许保留 13-gate 投影，但一次发布中至少需要一个 14-gate 条目。
+客户端仍可只读识别既有 schema 1 缓存。
 
 ```bash
 # 只校验并打印结果，不写文件

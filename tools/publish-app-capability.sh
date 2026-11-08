@@ -124,7 +124,7 @@ dry_run = os.environ["DRY_RUN"] == "1"
 
 APP_VERSION = re.compile(r"^\d+(?:\.\d+){2,}$")
 SDK_VERSION = re.compile(r"^\d+(?:\.\d+)+$")
-GATE_IDS = {
+GATE_IDS_V13 = {
     "770071981",
     "410262010",
     "419294242",
@@ -139,6 +139,7 @@ GATE_IDS = {
     "2296472986",
     "1042620455",
 }
+GATE_IDS_V14 = GATE_IDS_V13 | {"4114442250"}
 LAYER_ID = "72216192"
 MAX_BYTES = 512 * 1024
 FORBIDDEN_KEYS = {
@@ -254,9 +255,11 @@ for path in sorted(root.glob("*/*/*/defaults.json")):
     if isinstance(interval, bool) or not isinstance(interval, int) or interval <= 0:
         raise SystemExit(f"错误：{path}.sdkConfigs.live_values_auto_refresh_interval_seconds 非法")
     gates = doc.get("featureGates")
-    if not isinstance(gates, dict) or set(gates) != GATE_IDS:
-        raise SystemExit(f"错误：{path}.featureGates 必须恰好包含 13 个既定 gate")
-    for gid in sorted(GATE_IDS):
+    if not isinstance(gates, dict) or set(gates) not in (GATE_IDS_V13, GATE_IDS_V14):
+        raise SystemExit(
+            f"错误：{path}.featureGates 必须包含 13-gate 历史投影或 14-gate 当前投影"
+        )
+    for gid in sorted(gates):
         check_gate(gid, gates[gid], str(path))
     layers = doc.get("layers")
     if not isinstance(layers, dict) or set(layers) != {LAYER_ID}:
@@ -277,6 +280,7 @@ for path in sorted(root.glob("*/*/*/defaults.json")):
         raise SystemExit(f"错误：{path}.layers.{LAYER_ID}.id_type 为空")
     check_identity_free(doc, str(path))
     records.append({
+        "gate_count": len(gates),
         "appVersion": app_version,
         "appBuild": app_build,
         "sdkVersion": sdk_version,
@@ -290,6 +294,8 @@ for path in sorted(root.glob("*/*/*/defaults.json")):
 
 if not records:
     raise SystemExit(f"错误：{root} 下没有 defaults.json")
+if not any(record["gate_count"] == 14 for record in records):
+    raise SystemExit("错误：至少需要一个包含 4114442250 的 14-gate defaults.json")
 
 old_entries = {}
 if index_path.is_file():
