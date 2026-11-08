@@ -2,6 +2,19 @@
   "schemaVersion": 2,
   "entries": [
     {
+      "gate_count": 14,
+      "appVersion": "26.1103.41825",
+      "appBuild": "25679",
+      "sdkVersion": "3.35.1",
+      "contractVersion": 1,
+      "path": "26.1103.41825/25679/3.35.1/defaults.json",
+      "sha256": "ffe82797f23e7e244e01ee43fe2d027c9a69448c3f753a88a33fed04c0743173",
+      "capturedAt": "2026-11-08T23:49:09Z",
+      "expiresAt": "2026-12-08T23:49:09Z",
+      "forwardCompatible": true
+    },
+    {
+      "gate_count": 13,
       "appVersion": "26.1103.31037",
       "appBuild": "25241",
       "sdkVersion": "3.35.1",
@@ -13,6 +26,7 @@
       "forwardCompatible": true
     },
     {
+      "gate_count": 13,
       "appVersion": "26.1029.70936",
       "appBuild": "24905",
       "sdkVersion": "3.35.1",
