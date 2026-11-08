@@ -1,19 +1,19 @@
 {
-  "version": "0.13.1",
-  "notes": "Coskey 0.13.1 — 修复新版 ChatGPT.app 下浏览器和电脑操控不可用\n\n- 适配 ChatGPT.app 26.1103 及以上版本的 macOS 安全校验：修复模型对话正常，\n  但浏览器、Chrome / Edge 控制或电脑操控相关工具无法连接的问题\n- 修复浏览器工具可能误用 coskey 包装器作为 Codex 内核的问题。现在会固定使用\n  ChatGPT.app 自带的 Codex，macOS 和 Windows 同步生效\n- 升级后请完全退出并重新启动 ChatGPT.app。只重启浏览器或重装扩展不会刷新已经启动的内核\n- 如果 ChatGPT.app 自带的 Codex 版本较旧，聊天仍会正常工作，但浏览器控制会暂时不可用。\n  请升级 ChatGPT.app；「体检」会明确提示原因\n\n建议所有 0.13.0 用户升级，尤其是使用新版 ChatGPT.app 的 macOS 用户。",
-  "pub_date": "2026-11-07T12:25:44Z",
+  "version": "0.13.2",
+  "notes": "Coskey 0.13.2 — 修复个性化后 ChatGPT 的“连接”设置入口消失\n\n- 修复开启 ChatGPT.app 个性化后，“设置 → 连接”入口不再显示的问题\n- 个性化默认值投影新增 gate `4114442250`；macOS 与 Windows 使用同一修复，不需要额外的平台适配\n- 该修复只恢复“连接”设置入口，不会额外开放 SSH、WSL 或远程控制能力；这些功能仍取决于\n  ChatGPT.app 自身的配置、gate 和本机服务状态\n- 如果此前已经保存过个性化设置，内置默认值的校验值会随新增 gate 改变。请先在「个性化」\n  页采用新的内置基线（保留兼容修改）或从内置重新生成，再通过 Coskey 重启 ChatGPT.app；\n  旧配置不会被静默换用\n- 已有的个性化代理实例不会自动刷新 Statsig 值，必须重新启动 ChatGPT.app\n\n建议所有在 API key 模式下使用个性化、且设置中缺少“连接”入口的用户升级。",
+  "pub_date": "2026-11-08T23:26:52Z",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.1/Coskey_0.13.1_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUxPL3d2STArNi9Gd0ZsOXV3MlpsL1RaSllETm5LQXhQSTl0UFg2T0k3ZDRYVEE0NmdIc2szQW8xYjF3djEvN0EydzgvSE5LdG1JQ3lVYitpblVsaFFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDU0MTgxCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKbUhNeTc4QmhGbWhqYjJQM1R2c0VWSzBWMEUxcjRkUysvd0pTVEJYaGtFWElNcWFJcVZFTDJ2bWJpYmZ6ZlY5MU94d0M3OW5aUXhuVXlCTGVpZVo5RGc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.2/Coskey_0.13.2_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUN6ZlFCamI1N0FYQUd3ZnZOYjNMeGRmeDU3TEp3SFlrNzNLUVpKbUc1aFJoOE9nUW5ySm5vQXdqSitGczlWOEwxdjk3Ly8wZ29majNEYm1Sb3Qra1FzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MTgwMjQ3CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKR2dQZGVXV0ZnRzNZU1lwUGt4UU5lSTBxTjZBcTFaM3pPa25mSkcvK2tuU3F1VVkvQVhHRlpJd1FINmdaSEl2YkRWY1dueUpoNldzRjJiMGJFM2x1Qnc9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.1/Coskey_0.13.1_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUhKT05teE91QitoNG92NGFaZnZzU3dnNVE1dWc3TEFpdS9mc1pYTVpXU0c4TFkrNGhrZ1FBcWhkQzdmcmVaUFMvRG5aSm1rYWJJMW9Fb1E4Z01TSmdZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDU0MzQzCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKbFZ3c04zYmJBaUtZNHd3OHBBcTZvZ0xJYXBueVRrRFg0L0F5ZjlnVVdMZDI1VFNPZlRrZjNLeHRRMmd5TGpWbGtHRDJGZnl3azJHQXJxQUJ0bFlOQlE9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.2/Coskey_0.13.2_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RVBHemhCdzFCc1lDeTlvK1lidlYvZ0xWRU92VFVSTEorVlhzM0NDSEU0MFJ3OGgzWk5YUnJaRy9IbFRuUzRoeFlSd1J1VXRXV0lnRVhDSWMzUDNCZ3drPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MTgwNDExCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKMHRzZkpCOFVQaGZjTktET2duRUl1aWsxcDhQM093aXhDRmVOS05WU3BaaTRMMUM4VG96RXhWdFEwaWRHV1MrQ3BxQytGZDlPc2hmdytydE9XQktsQWc9PQo="
     },
     "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.1/Coskey_0.13.1_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RVB5WURLVUY1SDUzc2ZtNlVZVzJRSU5HbCsyVGk1dkJoUm5qTUpadjhLNVNWbFFvR3NGUVV3N01yaHE0bzJzb3hldm5SdUpCT2swby9wbm1QOS9SWmdjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MDUxNDg1CWZpbGU6Q29za2V5XzAuMTMuMV94NjQtc2V0dXAuZXhlCmhheCt2eHBnZHZnOHJGQjFpQ2VlRXhlaG92Z0JPdFVRZkN2TThFZnFEYitPdkpXOXE3VlR5M1RJZEZZWHNXd2Z4ZWg4VTVIcEkreXFva0hXWkVhVURRPT0K"
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.13.2/Coskey_0.13.2_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUt4bTJpNjFVdnYxTnpRejBMTEdZTmhPYlo2MFlCSlRCQUlPNGhGSHY3c3VPVnc5MUZ6Vko3Njk0aE1meFVMNTYzU3NCeWp6SGk2dDk5bk91ODJkQ3dNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0MTc5NzM1CWZpbGU6Q29za2V5XzAuMTMuMl94NjQtc2V0dXAuZXhlClAzWVk3VEc2WXdlcXJEMGF0NzVGUkg5Y2FrMk9oRHF5WUhEUWV1emc4MHh0YlJhQkpwczhyOU94VlREa3pSZEJJTHhzSTV3anBoNmxvMUVWS01rL0JRPT0K"
     }
   },
   "min_supported_version": "0.12.0"
