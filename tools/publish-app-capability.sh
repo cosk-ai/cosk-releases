@@ -296,6 +296,8 @@ if not records:
     raise SystemExit(f"错误：{root} 下没有 defaults.json")
 if not any(record["gate_count"] == 14 for record in records):
     raise SystemExit("错误：至少需要一个包含 4114442250 的 14-gate defaults.json")
+for record in records:
+    record.pop("gate_count", None)
 
 old_entries = {}
 if index_path.is_file():
