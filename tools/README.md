@@ -150,6 +150,8 @@ coskey/app-capability/statsig/
 
 - schema 2 / `contractVersion: 1` 继续用于旧客户端，保持 13/14-gate 固定投影；
 - schema 3 / `contractVersion: 2` 带同文件 `ui` 目录，供 0.14.0+ 动态渲染；
+- schema 3 不维护有效期，`defaults.json` 不写 `expiresAt`；脚本只在索引中写入
+  `9999-12-31T23:59:59Z` 兼容哨兵，供旧客户端解析；
 - schema 3 必须显式传 `--allow-schema3`，避免误发；
 - schema 3 必须使用新的 `<appVersion>/<appBuild>/<sdkVersion>` 目录，不能覆盖
   已发布的 schema 2 路径；

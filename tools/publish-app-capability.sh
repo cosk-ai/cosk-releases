@@ -155,6 +155,7 @@ SCHEMA3 = 3
 CONTRACT_SCHEMA2 = 1
 CONTRACT_SCHEMA3 = 2
 UI_SCHEMA_VERSION = 1
+NO_EXPIRY = "9999-12-31T23:59:59Z"
 CONTROL_KINDS = {"switch", "select", "text", "number"}
 PLATFORMS = {"macOS", "Windows"}
 UI_KEYS = {"schemaVersion", "groups", "controls"}
@@ -446,9 +447,17 @@ for path in sorted(root.glob("*/*/*/defaults.json")):
     if not isinstance(doc.get("source"), str) or not doc["source"].strip():
         raise SystemExit(f"错误：{path}.source 不能为空")
     captured = parse_time(doc.get("capturedAt"), f"{path}.capturedAt")
-    expires = parse_time(doc.get("expiresAt"), f"{path}.expiresAt")
-    if expires <= captured:
-        raise SystemExit(f"错误：{path}.expiresAt 必须晚于 capturedAt")
+    if schema == SCHEMA2:
+        expires = parse_time(doc.get("expiresAt"), f"{path}.expiresAt")
+        if expires <= captured:
+            raise SystemExit(f"错误：{path}.expiresAt 必须晚于 capturedAt")
+        published_expiry = doc["expiresAt"]
+    else:
+        if "expiresAt" in doc:
+            raise SystemExit(
+                f"错误：{path} 是 schema 3，不得声明 expiresAt；索引会自动写入兼容哨兵"
+            )
+        published_expiry = NO_EXPIRY
     if not isinstance(doc.get("forwardCompatible"), bool):
         raise SystemExit(f"错误：{path}.forwardCompatible 必须是布尔值")
     if not isinstance(doc.get("sdkFlags"), dict):
@@ -508,7 +517,7 @@ for path in sorted(root.glob("*/*/*/defaults.json")):
         "path": f"{app_version}/{app_build}/{sdk_version}/defaults.json",
         "sha256": hashlib.sha256(raw).hexdigest(),
         "capturedAt": doc["capturedAt"],
-        "expiresAt": doc["expiresAt"],
+        "expiresAt": published_expiry,
         "forwardCompatible": doc["forwardCompatible"],
     })
 
