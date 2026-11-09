@@ -7,7 +7,6 @@
   "hash": "djb2",
   "source": "anonymous-initialize-defaults",
   "capturedAt": "2026-11-09T13:31:07Z",
-  "expiresAt": "2026-12-09T13:31:07Z",
   "forwardCompatible": true,
   "featureGates": {
     "770071981": {
