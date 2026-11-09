@@ -2,6 +2,17 @@
   "schemaVersion": 2,
   "entries": [
     {
+      "appVersion": "26.1103.60933",
+      "appBuild": "25894",
+      "sdkVersion": "3.35.1",
+      "contractVersion": 2,
+      "path": "26.1103.60933/25894/3.35.1/defaults.json",
+      "sha256": "c698548e75d090bd52f72b127d4f07d58fc0d2870e340a820437ce338f3e6801",
+      "capturedAt": "2026-11-09T13:31:07Z",
+      "expiresAt": "2026-12-09T13:31:07Z",
+      "forwardCompatible": true
+    },
+    {
       "appVersion": "26.1103.41825",
       "appBuild": "25679",
       "sdkVersion": "3.35.1",

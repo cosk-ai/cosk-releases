@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 3,
+  "appVersion": "26.1103.60933",
+  "appBuild": "25894",
+  "sdkVersion": "3.35.1",
+  "contractVersion": 2,
+  "hash": "djb2",
+  "source": "anonymous-initialize-defaults",
+  "capturedAt": "2026-11-09T13:31:07Z",
+  "expiresAt": "2026-12-09T13:31:07Z",
+  "forwardCompatible": true,
+  "featureGates": {
+    "770071981": {
+      "name": "770071981",
+      "rule_id": "default",
+      "secondary_exposures": [
+        {
+          "gate": "1106209706",
+          "gateValue": "false",
+          "ruleID": "default"
+        }
+      ],
+      "version": 4,
+      "id_type": "userID",
+      "value": false
+    },
+    "410262010": {
+      "name": "410262010",
+      "rule_id": "1AtYnZN0tdEMTdHpPbrvWq",
+      "secondary_exposures": [],
+      "version": 28,
+      "id_type": "userID",
+      "value": true
+    },
+    "419294242": {
+      "name": "419294242",
+      "rule_id": "61m4b9qgEUkRm9tt1vFOVs:100.00:1",
+      "secondary_exposures": [],
+      "version": 32,
+      "id_type": "userID",
+      "value": true
+    },
+    "410065390": {
+      "name": "410065390",
+      "rule_id": "1oLUJG9nvKCwOGpg1MpEyF:100.00:5",
+      "secondary_exposures": [],
+      "version": 34,
+      "id_type": "userID",
+      "value": true
+    },
+    "1506311413": {
+      "name": "1506311413",
+      "rule_id": "3UriQxgjOJV0GmtdUb7qnA:100.00:2",
+      "secondary_exposures": [],
+      "version": 48,
+      "id_type": "userID",
+      "value": true
+    },
+    "1892382740": {
+      "name": "1892382740",
+      "rule_id": "lGpy0UvT3k1XxgiYA3HHn:100.00:3",
+      "secondary_exposures": [
+        {
+          "gate": "640544080",
+          "gateValue": "false",
+          "ruleID": "default"
+        }
+      ],
+      "version": 62,
+      "id_type": "userID",
+      "value": true
+    },
+    "3085093835": {
+      "name": "3085093835",
+      "rule_id": "e7Gs9r8T8O1m7G3nRBPT9",
+      "secondary_exposures": [
+        {
+          "gate": "224248639",
+          "gateValue": "false",
+          "ruleID": "4BLreq2Nei1ImgBDbYBu2M"
+        },
+        {
+          "gate": "2200939124",
+          "gateValue": "false",
+          "ruleID": "4R5WzG9YBDd8JpFB9WFIAN"
+        },
+        {
+          "gate": "2325598707",
+          "gateValue": "false",
+          "ruleID": "2FiZsRP9UdIVWbdeyIZ8J8:0.00:1"
+        },
+        {
+          "gate": "3115478912",
+          "gateValue": "false",
+          "ruleID": "default"
+        },
+        {
+          "gate": "743477219",
+          "gateValue": "false",
+          "ruleID": "3gTErFm48dlxm2P3JNcvqA"
+        }
+      ],
+      "version": 393,
+      "id_type": "userID",
+      "value": true
+    },
+    "4114442250": {
+      "name": "4114442250",
+      "rule_id": "6V6cTqLPycPr9mOpb0SQKj:100.00:1",
+      "secondary_exposures": [
+        {
+          "gate": "3452108634",
+          "gateValue": "false",
+          "ruleID": "default"
+        }
+      ],
+      "version": 100,
+      "id_type": "userID",
+      "value": true
+    },
+    "1304276663": {
+      "name": "1304276663",
+      "rule_id": "1xygkd2tyKw8xdGmvWHfsf",
+      "secondary_exposures": [],
+      "version": 29,
+      "id_type": "userID",
+      "value": true
+    },
+    "1532120159": {
+      "name": "1532120159",
+      "rule_id": "2j9RG3jjVhgk4Poloa8FMd:100.00:7",
+      "secondary_exposures": [],
+      "version": 58,
+      "id_type": "userID",
+      "value": true
+    },
+    "1288674243": {
+      "name": "1288674243",
+      "rule_id": "35ITPlEIOgaqnwPDbnffyO",
+      "secondary_exposures": [],
+      "version": 11,
+      "id_type": "userID",
+      "value": true
+    },
+    "2124127696": {
+      "name": "2124127696",
+      "rule_id": "6rySnavbwWl3d7k5MtvlPZ:100.00:6",
+      "secondary_exposures": [],
+      "version": 33,
+      "id_type": "userID",
+      "value": true
+    },
+    "2296472986": {
+      "name": "2296472986",
+      "rule_id": "6xuekyAEbdg9TYSTXweEAj",
+      "secondary_exposures": [],
+      "version": 21,
+      "id_type": "userID",
+      "value": true
+    },
+    "1042620455": {
+      "name": "1042620455",
+      "rule_id": "5iRBA2JzbghJ84oUGAk4bD",
+      "secondary_exposures": [],
+      "version": 108,
+      "id_type": "userID",
+      "value": false
+    }
+  },
+  "layers": {
+    "72216192": {
+      "name": "72216192",
+      "rule_id": "default",
+      "secondary_exposures": [],
+      "version": 11,
+      "value": {
+        "enable_i18n": true,
+        "locale_source": "IDE"
+      },
+      "id_type": "userID",
+      "is_device_based": false,
+      "explicit_parameters": [],
+      "undelegated_secondary_exposures": []
+    }
+  },
+  "sdkFlags": {
+    "enabled_log_event_compression": true,
+    "enable_log_event_compression": true
+  },
+  "sdkConfigs": {
+    "live_values_auto_refresh_interval_seconds": 600
+  },
+  "ui": {
+    "schemaVersion": 1,
+    "groups": [
+      {
+        "id": "commonly",
+        "order": 10,
+        "label": {
+          "zh-CN": "常用功能",
+          "en": "Everyday features"
+        }
+      },
+      {
+        "id": "interface",
+        "order": 20,
+        "label": {
+          "zh-CN": "界面与效率",
+          "en": "Interface and shortcuts"
+        }
+      },
+      {
+        "id": "office",
+        "order": 30,
+        "label": {
+          "zh-CN": "Office",
+          "en": "Office"
+        }
+      },
+      {
+        "id": "advanced",
+        "order": 90,
+        "label": {
+          "zh-CN": "高级设置",
+          "en": "Advanced"
+        }
+      }
+    ],
+    "controls": [
+      {
+        "id": "i18n",
+        "target": "layer:72216192.enable_i18n",
+        "kind": "switch",
+        "group": "commonly",
+        "order": 10,
+        "label": {
+          "zh-CN": "中文界面",
+          "en": "Chinese interface"
+        },
+        "description": {
+          "zh-CN": "让 ChatGPT.app 使用所选界面语言。",
+          "en": "Use the selected language in ChatGPT.app."
+        }
+      },
+      {
+        "id": "browser-agent",
+        "target": "gate:410262010",
+        "kind": "switch",
+        "group": "commonly",
+        "order": 20,
+        "label": {
+          "zh-CN": "浏览器助手",
+          "en": "Browser assistant"
+        },
+        "description": {
+          "zh-CN": "允许 ChatGPT 读取和操作浏览器页面。",
+          "en": "Let ChatGPT read and control browser pages."
+        }
+      },
+      {
+        "id": "computer-use",
+        "target": "gate:419294242",
+        "kind": "switch",
+        "group": "commonly",
+        "order": 30,
+        "label": {
+          "zh-CN": "电脑操作",
+          "en": "Computer Use"
+        },
+        "description": {
+          "zh-CN": "允许 ChatGPT 操作本机应用。",
+          "en": "Let ChatGPT work with apps on this computer."
+        }
+      },
+      {
+        "id": "computer-use-service",
+        "target": "gate:1892382740",
+        "kind": "switch",
+        "group": "commonly",
+        "order": 40,
+        "label": {
+          "zh-CN": "电脑操作服务",
+          "en": "Computer Use service"
+        },
+        "description": {
+          "zh-CN": "电脑操作功能所需的本地服务。",
+          "en": "The local service behind Computer Use."
+        }
+      },
+      {
+        "id": "external-browser",
+        "target": "gate:410065390",
+        "kind": "switch",
+        "group": "commonly",
+        "order": 50,
+        "label": {
+          "zh-CN": "外部浏览器控制",
+          "en": "External browser control"
+        },
+        "description": {
+          "zh-CN": "允许使用 Google Chrome 等外部浏览器。",
+          "en": "Allow control of external browsers such as Google Chrome."
+        }
+      },
+      {
+        "id": "computer-use-any-app",
+        "target": "gate:1506311413",
+        "kind": "switch",
+        "group": "commonly",
+        "order": 60,
+        "label": {
+          "zh-CN": "操作任意应用",
+          "en": "Any app"
+        },
+        "description": {
+          "zh-CN": "显示“任意应用”入口。",
+          "en": "Show the Any app entry."
+        }
+      },
+      {
+        "id": "nav-rail",
+        "target": "gate:3085093835",
+        "kind": "switch",
+        "group": "interface",
+        "order": 10,
+        "label": {
+          "zh-CN": "左侧导航栏",
+          "en": "Left sidebar"
+        },
+        "description": {
+          "zh-CN": "显示新版左侧导航栏。",
+          "en": "Show the newer left sidebar."
+        }
+      },
+      {
+        "id": "connections",
+        "target": "gate:4114442250",
+        "kind": "switch",
+        "group": "interface",
+        "order": 20,
+        "label": {
+          "zh-CN": "设置中的“连接”",
+          "en": "Settings → Connections"
+        },
+        "description": {
+          "zh-CN": "在设置中显示“连接”入口。入口可见不代表 SSH、WSL 或远程控制已可用。",
+          "en": "Show Connections in Settings. Visibility does not mean SSH, WSL, or remote control is available."
+        },
+        "platforms": [
+          "macOS",
+          "Windows"
+        ]
+      },
+      {
+        "id": "appshots",
+        "target": "gate:1304276663",
+        "kind": "switch",
+        "group": "interface",
+        "order": 30,
+        "label": {
+          "zh-CN": "应用快照",
+          "en": "Appshots"
+        },
+        "description": {
+          "zh-CN": "在设置中显示应用快照入口。",
+          "en": "Show the Appshots entry in Settings."
+        },
+        "platforms": [
+          "macOS",
+          "Windows"
+        ]
+      },
+      {
+        "id": "appshots-mini",
+        "target": "gate:1532120159",
+        "kind": "switch",
+        "group": "interface",
+        "order": 40,
+        "label": {
+          "zh-CN": "应用快照 Mini",
+          "en": "Appshots Mini"
+        },
+        "description": {
+          "zh-CN": "在应用快照中显示 Mini 选项。",
+          "en": "Show the Mini option inside Appshots."
+        },
+        "platforms": [
+          "macOS"
+        ]
+      },
+      {
+        "id": "appshots-windows",
+        "target": "gate:2124127696",
+        "kind": "switch",
+        "group": "interface",
+        "order": 50,
+        "label": {
+          "zh-CN": "Windows 应用快照",
+          "en": "Windows Appshots"
+        },
+        "description": {
+          "zh-CN": "Windows 上的应用快照入口。",
+          "en": "The Appshots entry on Windows."
+        },
+        "platforms": [
+          "Windows"
+        ]
+      },
+      {
+        "id": "office-live-control",
+        "target": "gate:1288674243",
+        "kind": "switch",
+        "group": "office",
+        "order": 10,
+        "label": {
+          "zh-CN": "Office 实时控制",
+          "en": "Office live control"
+        },
+        "description": {
+          "zh-CN": "允许 ChatGPT 与 Office 加载项协作。插件和权限仍需单独就绪。",
+          "en": "Allow ChatGPT to work with Office add-ins. Plugins and permissions still need to be ready."
+        },
+        "platforms": [
+          "macOS",
+          "Windows"
+        ]
+      },
+      {
+        "id": "locale-source",
+        "target": "layer:72216192.locale_source",
+        "kind": "select",
+        "group": "advanced",
+        "order": 10,
+        "label": {
+          "zh-CN": "界面语言来源",
+          "en": "Interface language source"
+        },
+        "description": {
+          "zh-CN": "仅在 ChatGPT 没有显式语言覆盖时，决定从哪里选择回退语言。",
+          "en": "When ChatGPT has no explicit locale override, choose where its fallback locale comes from."
+        },
+        "options": [
+          {
+            "value": "IDE",
+            "label": {
+              "zh-CN": "IDE / 编辑器语言",
+              "en": "IDE / editor language"
+            }
+          },
+          {
+            "value": "SYSTEM",
+            "label": {
+              "zh-CN": "系统语言",
+              "en": "System language"
+            }
+          },
+          {
+            "value": "FIRST_AVAILABLE",
+            "label": {
+              "zh-CN": "IDE 优先，系统兜底",
+              "en": "IDE first, then system"
+            }
+          }
+        ]
+      },
+      {
+        "id": "workspace-restriction",
+        "target": "gate:770071981",
+        "kind": "switch",
+        "group": "advanced",
+        "order": 20,
+        "label": {
+          "zh-CN": "工作空间限制",
+          "en": "Workspace restriction"
+        },
+        "description": {
+          "zh-CN": "技术开关；账号和工作空间限制不会被个性化解除。",
+          "en": "Technical switch. Personalization does not remove account or workspace restrictions."
+        }
+      },
+      {
+        "id": "locked-computer-use",
+        "target": "gate:2296472986",
+        "kind": "switch",
+        "group": "advanced",
+        "order": 30,
+        "label": {
+          "zh-CN": "锁屏时继续使用",
+          "en": "Use while locked"
+        },
+        "description": {
+          "zh-CN": "显示锁屏操作入口；还要满足远程控制和系统权限。",
+          "en": "Show the locked-use entry. Remote control and system permissions are also required."
+        },
+        "platforms": [
+          "macOS"
+        ]
+      },
+      {
+        "id": "remote-control-prerequisite",
+        "target": "gate:1042620455",
+        "kind": "switch",
+        "group": "advanced",
+        "order": 40,
+        "label": {
+          "zh-CN": "锁屏操作前置",
+          "en": "Locked-use prerequisite"
+        },
+        "description": {
+          "zh-CN": "技术依赖项；开启前请确认你理解风险。",
+          "en": "Technical dependency. Confirm that you understand the risk before enabling it."
+        },
+        "platforms": [
+          "macOS"
+        ]
+      }
+    ]
+  }
+}
