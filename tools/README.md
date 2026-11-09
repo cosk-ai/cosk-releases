@@ -146,9 +146,16 @@ coskey/app-capability/statsig/
 
 `defaults.json` 是输入，`index.json` 由脚本生成。脚本保留最近 20 个
 `appVersion`；同一应用版本下的 `appBuild` / `sdkVersion` 组合全部保留。
-索引使用 `schemaVersion: 2`。新 defaults 必须包含 0026 规定的 14 个 gate 与 i18n
-layer；历史条目允许保留 13-gate 投影，但一次发布中至少需要一个 14-gate 条目。
-客户端仍可只读识别既有 schema 1 缓存。
+索引始终使用 `schemaVersion: 2`。`defaults.json` 支持混合发布：
+
+- schema 2 / `contractVersion: 1` 继续用于旧客户端，保持 13/14-gate 固定投影；
+- schema 3 / `contractVersion: 2` 带同文件 `ui` 目录，供 0.14.0+ 动态渲染；
+- schema 3 必须显式传 `--allow-schema3`，避免误发；
+- schema 3 必须使用新的 `<appVersion>/<appBuild>/<sdkVersion>` 目录，不能覆盖
+  已发布的 schema 2 路径；
+- 同一版本路径的 `contractVersion` 不得变化，`--force` 也不能绕过；
+- 一次发布中至少保留一个 schema 2、14-gate 条目，供仍安装了 0.13.x 的客户端使用；
+- 客户端仍可只读识别既有 schema 1 缓存。
 
 ```bash
 # 只校验并打印结果，不写文件
@@ -162,6 +169,9 @@ tools/publish-app-capability.sh --sign
 
 # 完整发布：签名 → 提交 → Gitee/GitHub 双推 → cosk.ai 部署 → 回读核对
 tools/publish-app-capability.sh --publish
+
+# 首次加入 schema 3 时必须显式开启；正式发布同样追加 --publish
+tools/publish-app-capability.sh --allow-schema3 --dry-run
 ```
 
 默认签名私钥为 `~/.config/coskey-release/coskey.key`，也可用
@@ -170,8 +180,10 @@ tools/publish-app-capability.sh --publish
 `.key.pub` 与 coskey `gui/tauri.conf.json` 的 updater 公钥一致。私钥不会写入仓库。
 
 已存在的 `<appVersion>/<appBuild>/<sdkVersion>` 内容若被原地修改，脚本默认拒绝；只能改用新版本
-目录。`--force` 只用于明确知道后果的紧急修订。默认模式、`--dry-run` 和 `--sign`
-用于预发布检查；只有 `--publish` 会提交、推送和部署。
+目录。`--force` 只用于同一 contract 下的明确紧急修订，不能把旧路径从 schema 2/contract 1
+迁移到 schema 3/contract 2。默认模式、`--dry-run` 和 `--sign` 用于预发布检查；只有
+`--publish` 会提交、推送和部署。部署时按文件合并版本目录，不会删除远端本次未包含的
+旧 build/sdk 文件。
 
 ## 环境变量
 
