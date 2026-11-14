@@ -1,19 +1,19 @@
 {
-  "version": "0.14.2",
-  "notes": "Coskey 0.14.2 — 修复个性化启动后的系统权限与应用身份\n\n- macOS：通过个性化入口启动 ChatGPT 后，屏幕录制等系统权限不再错误归到\n  coskey / Coskey.app，而由 ChatGPT 自己申请。旧的权限条目不会自动消失；更新后\n  重新启动一次 ChatGPT，确认正常后可在系统设置中手动移除多余条目\n- Windows：通过个性化入口启动 ChatGPT 时，会像从开始菜单启动一样保留完整应用身份，\n  不再进入另一套用户数据，避免配置或会话看起来对不上\n- Coskey Tools 更新到 0.3.4：修正旧版 0.3.3 缓存无法升级的问题，并补齐个性化受管启动的\n  只读诊断说明\n- 已生成的个性化启动器无需重新生成。更新后打开一次 Coskey，或用个性化页重新启动\n  ChatGPT 即可。建议所有 0.14.1 用户升级",
-  "pub_date": "2026-11-14T02:07:00Z",
+  "version": "0.14.3",
+  "notes": "Coskey 0.14.3 — 修复 API key 登录识别\n\n- 修复部分 API key 登录用户被误判为“未登录”的问题，不再依赖配置中是否额外标记登录模式\n- ChatGPT.app 检测页改为显示“登录模式”；API key 登录作为正常状态展示，不再出现不必要的告警或切换账号提示\n- ChatGPT 账号登录同样兼容省略登录模式标记的情况，不影响官方模型和订阅能力\n- 建议所有 0.14.2 用户升级。更新后重新打开 Coskey 即可",
+  "pub_date": "2026-11-14T07:20:01Z",
   "platforms": {
     "darwin-aarch64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.14.2/Coskey_0.14.2_aarch64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU0xM000dmNDVEt4amNRNUZPTmhjbTZmTTVVMkk2N2RqbG5DNTVqZGVFd1ViR053OW5wNUdiTEYwNFdOTk9qR2xKM2JuSWlvaFVIcHNidExFUUtGTXdVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NjIxODg4CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKWnhQNUh3ZmtUWElWbDQ1WG9iYm0xSlVGUmlGMERKQ1Nkekwyc2trMnFVcU5RbkJSck5zY1pUODNQNkJrU2tncWNDckVWOTZqZTllV3NnUFlvN05BRHc9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.14.3/Coskey_0.14.3_aarch64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUNGMTlCMTFKMWdmaVRML1VoY1B2Wk9LWHpZQ2tkL0NHa0pDRzczMEl6bHFJSS90OFBKWDFIOEdSTzZ1SkpsYU82Rm5ZYU5WRkVjV3ZmM1NtOU50T3dFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NjQwNjM5CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKaEl2bklMV25xMHZvN054Y3RQZllIVEFhYStuTTNJWmZCQUZLdysyKzN3aC90WDZ4MnB4bGhlK0VrQkI2QXpIRXdnbmNsVGVtaW9OZjk0enpad0toQXc9PQo="
     },
     "darwin-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.14.2/Coskey_0.14.2_x64.app.tar.gz",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RU9XKzZVeE1QVG9QUHREQlV2dko4ZEF3MjBWWC9iOUk0bnZFaWlEdEJ2b2p0VFNlRU5zYyt1Tm1iVU5LLzB2cTV5MWFLcXd0WHNENHJ1TlBTazU1dUFjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NjIyMDE5CWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKa3dSZThBMFVFeGFzckZHWXJHOXFEOU5ibmxicXZxTENyQmRnaVpUUVNubWlGTDZkR3lmRWhQRWNDTHFsa212ZDhiY0w3K0pCMEdjMWRnaDR1SmtSQlE9PQo="
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.14.3/Coskey_0.14.3_x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUgxS3ZkSlp6RGRXNlNUVS9MY0g5UzhBeW5kajZlMCthYnFNR0o5Z0M0T3N6M1ZXV3JELy9ZTHZZM1ducEdXQjV0eUhnZml0c3hNY21OR0tlMWl4ckFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NjQwODAxCWZpbGU6Q29za2V5LmFwcC50YXIuZ3oKZ1hVZXlRK2xtZGM5N01Tb3BwbmppbXZXVzkvVU5acFN6blloUjdBS09GWWxJRkRJUW9GUlovVitpZnc0eVAydFhtNXhFdDR6ZGZHSEVLWnpBOTgxQVE9PQo="
     },
     "windows-x86_64": {
-      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.14.2/Coskey_0.14.2_x64-setup.exe",
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUE5MzR6MzY1REtwc1c2REc1K1hzMlIyV0czNUMvVkpiemkyenN0TU83dzVxNDFxRkZ2ZERpU0JadjhDaVhvRDdwa1lDSjFZakFqRXp5R0ZWbXZXRHdBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NjE3MjMwCWZpbGU6Q29za2V5XzAuMTQuMl94NjQtc2V0dXAuZXhlCllNdG5kazJuazFhOXVDaUVTTlJvSXdnTTZ4Z0xrNDUxQ3VTL3JPdlY3MVJ4VXdJbDJZNWF5S0VmM2grY25KZzIvSHVBM1JzWGpCcCtCVGl0bkEwUUFBPT0K"
+      "url": "https://gitee.com/cosk-ai/cosk-releases/releases/download/coskey-v0.14.3/Coskey_0.14.3_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNDF6TmF0bmR1RUdKWlozM2NqS3F3RWtLNDRBVWV4SEpaa3lJRHRkS09XRzI1R0pjRzlZdjF1UUlwS2R4dzNZTjY4NGQvYkx4S3ZmL0JGczZ0U2ROV3lhcGVQZEpVY3dFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk0NjQwMTg2CWZpbGU6Q29za2V5XzAuMTQuM194NjQtc2V0dXAuZXhlClMzNGJzdU9OelVJeElEUURtK1MxcS96MjVDSlcyTGtiaE5PajFsWEtmYlJ5U0FHSjBqUWZub3FQK2tDS3lzSFVUTHFkT3loKyttd1MzSkpxb2V4WkR3PT0K"
     }
   },
   "min_supported_version": "0.12.0"
